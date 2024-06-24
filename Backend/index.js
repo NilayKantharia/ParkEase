@@ -1,7 +1,7 @@
 const connection  = require('./connection');
 const express = require('express');
 const path = require('path');
-const signinroute = require('./routes/signin');
+const signuproute = require('./routes/signup');
 const loginroute = require('./routes/login');
 
 const app = express();
@@ -17,7 +17,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // Route
-app.use('/signin', signinroute);
+app.use('/signup', signuproute);
 app.use('/login',loginroute)
 
 // Start the server
