@@ -18,12 +18,12 @@ CREATE TABLE ticket (
     ticket_id INT AUTO_INCREMENT PRIMARY KEY,
     ticket_type VARCHAR(50) NOT NULL,
     ticket_price DECIMAL(10,2) NOT NULL,
-    no_of_member INT NOT NULL,
+    no_of_member INT NOT NULL DEFAULT 1,
     user_id INT,
     generated_on TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    valid_till TIMESTAMP NOT NULL,
+    booked_for DATE DEFAULT CURRENT_DATE,
     ticket_scanned_at TIMESTAMP,
-    no_of_member_scanned INT NOT NULL,
+    no_of_member_scanned INT NOT NULL DEFAULT 1
     FOREIGN KEY (user_id) REFERENCES user(user_id)
 );
 
