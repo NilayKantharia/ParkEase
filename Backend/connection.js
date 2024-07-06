@@ -4,15 +4,15 @@ const connection = mysql.createConnection({
     user: 'root',
     password: 'Nilay@2903', 
     database: 'parkeasetest', 
-  });
+});
 
-  connection.connect((err) => {
+connection.connect((err) => {
     if (err) {
-        console.error('Error: Unsuccessful connection to MySQL DB:', err);
+        console.error('Error: Unsuccessful connection to MySQL:', err);
     } else {
-        console.log('Connection to MySQL DB is done!');
+        console.log('MySQL Connected!');
     }
 });
 
 
-module.exports=connection;
+module.exports = connection;
