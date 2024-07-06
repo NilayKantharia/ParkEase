@@ -13,21 +13,6 @@ CREATE TABLE user(
 CREATE INDEX idx_user_mail_id ON user (mail_id);
 CREATE INDEX idx_user_phone_no ON user (phone_no);
 
--- Ticket Table
-CREATE TABLE ticket (
-    ticket_id INT AUTO_INCREMENT PRIMARY KEY,
-    ticket_type VARCHAR(50) NOT NULL,
-    ticket_price DECIMAL(10,2) NOT NULL,
-    no_of_members INT NOT NULL DEFAULT 1,
-    user_id INT,
-    generated_on TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    booked_for DATE,
-    ticket_scanned_at TIMESTAMP,
-    no_of_members_scanned INT,
-    FOREIGN KEY (user_id) REFERENCES user(user_id)
-);
-CREATE INDEX idx_ticket_user_id ON ticket (user_id);
-
 -- Ticket Types Table
 CREATE TABLE ticket_type (
     ticket_type_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -37,6 +22,23 @@ CREATE TABLE ticket_type (
     ticket_type_description TEXT NOT NULL
 );
 CREATE INDEX idx_ticket_type_name ON ticket_type (ticket_type_name);
+
+-- Ticket Table
+CREATE TABLE ticket (
+    ticket_id INT AUTO_INCREMENT PRIMARY KEY,
+    ticket_type_id INT,
+    ticket_price DECIMAL(10,2) NOT NULL,
+    no_of_members INT NOT NULL DEFAULT 1,
+    user_id INT,
+    generated_on TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    booked_for DATE,
+    ticket_scanned_at TIMESTAMP,
+    no_of_members_scanned INT,
+    FOREIGN KEY (user_id) REFERENCES user(user_id),
+    FOREIGN KEY (ticket_type_id) REFERENCES ticket_type(ticket_type_id)
+);
+CREATE INDEX idx_ticket_user_id ON ticket (user_id);
+
 
 -- Stall Table
 CREATE TABLE stall(
