@@ -29,12 +29,15 @@ CREATE TABLE ticket (
 
 CREATE INDEX idx_ticket_user_id ON ticket (user_id);
 
+CREATE TABLE ticket
+
 -- Stall Table
 CREATE TABLE stall(
     stall_id INT AUTO_INCREMENT PRIMARY KEY,
     stall_name VARCHAR(100) NOT NULL,
     location VARCHAR(255) NOT NULL,
-    stall_Type ENUM('Food', 'Others')
+    description TEXT,
+    stall_type ENUM('Food', 'Others')
 );
 
 
