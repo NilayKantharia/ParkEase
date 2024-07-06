@@ -2,6 +2,7 @@ const connection  = require('./connection');
 const express = require('express');
 const path = require('path');
 const userRouter = require('./routes/user');
+const ticketRouter = require('./routes/ticket');
 
 const app = express();
 const port = 8000;
@@ -16,8 +17,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 //Routes
-app.use('/user',userRouter); 
-app.use('/ticket',ticketRouter);
+app.use('/user', userRouter); 
+app.use('/ticket', ticketRouter);
 
 //Starting the server
 app.listen(port, () => {
