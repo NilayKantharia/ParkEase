@@ -26,10 +26,17 @@ CREATE TABLE ticket (
     no_of_members_scanned INT,
     FOREIGN KEY (user_id) REFERENCES user(user_id)
 );
-
 CREATE INDEX idx_ticket_user_id ON ticket (user_id);
 
-CREATE TABLE ticket
+-- Ticket Types Table
+CREATE TABLE ticket_type (
+    ticket_type_id INT AUTO_INCREMENT PRIMARY KEY,
+    ticket_type_name VARCHAR(20) NOT NULL,
+    ticket_type_price DECIMAL(10, 2) NOT NULL,
+    ticket_type_short_description VARCHAR(255) NOT NULL,
+    ticket_type_description TEXT NOT NULL
+);
+CREATE INDEX idx_ticket_type_name ON ticket_type (ticket_type_name);
 
 -- Stall Table
 CREATE TABLE stall(
