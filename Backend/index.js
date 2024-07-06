@@ -3,6 +3,7 @@ const express = require('express');
 const path = require('path');
 const userRouter = require('./routes/user');
 const ticketRouter = require('./routes/ticket');
+const orderRouter = require('./routes/order');
 
 const app = express();
 const port = 8000;
@@ -19,6 +20,7 @@ app.use(express.urlencoded({ extended: false }));
 //Routes
 app.use('/user', userRouter); 
 app.use('/ticket', ticketRouter);
+app.use('/order', orderRouter);
 
 //Starting the server
 app.listen(port, () => {
