@@ -42,7 +42,7 @@ CREATE TABLE stall(
 
 
 -- Order Table
-CREATE TABLE `Order` (
+CREATE TABLE `order` (
     order_id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT,
     ticket_id INT,
