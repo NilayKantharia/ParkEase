@@ -1,4 +1,3 @@
-const connection  = require('./connection');
 const express = require('express');
 const path = require('path');
 const userRouter = require('./routes/user');
