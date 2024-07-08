@@ -6,6 +6,6 @@ const {handleNewOrder, handleAllFoodDetails} = require('../controllers/order')
 router.post('/', handleNewOrder);
 
 //Get All Food Details
-router.get('/getFoodDetails', handleAllFoodDetails);
+router.get('/', handleAllFoodDetails);
 
 module.exports = router;
