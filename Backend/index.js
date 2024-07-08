@@ -17,9 +17,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 //Routes
-app.use('/user', userRouter); 
 app.use('/ticket', ticketRouter);
 app.use('/order', orderRouter);
+app.use('/', userRouter); 
 
 //Starting the server
 app.listen(port, () => {
