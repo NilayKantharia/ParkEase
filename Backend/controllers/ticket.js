@@ -2,7 +2,7 @@ const connection = require('../connection');
 
 //Book ticket Controller
 const handleBookTicket = (req, res) => {
-    const query = `INSERT INTO ticket (user_id, ticket_type_id, ticket_price, no_of_members, booked_for) VALUES (?, ?, ?, ?, ?)`
+    const query = `INSERT INTO ticket (user_id, ticket_type_id, ticket_price, no_of_members, booked_for) VALUES (?, ?, ?, ?, ?)`;
     const {userId, ticketTypeId, ticketPrice, noOfMembers, bookedFor} = req.body;
     connection.query(query, [userId, ticketTypeId, ticketPrice, noOfMembers, bookedFor], (err, result) => {
         if(err) {
