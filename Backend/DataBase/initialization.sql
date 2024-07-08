@@ -10,3 +10,5 @@ INSERT INTO stall (stall_name, location, description, stall_type) VALUES ("Adity
 
 INSERT INTO item (item_name, stall_id, price, image, description, item_type) VALUES ("Dal Bati", 1, 150, "https://www.chitrasfoodbook.com%2F2016%2F07%2Fdal-baati-recipe-rajasthani-dal-bati.html&docid=UvTXsFvplqhJBM&tbnid=LaHqMGV7pkwFpM&vet=12ahUKEwjwlNTM0ZaHAxWon2MGHZnALLgQM3oECGEQAA..i&w=500&h=633&hcb=2&ved=2ahUKEwjwlNTM0ZaHAxWon2MGHZnALLgQM3oECGEQAA", "Dal Bati Made with pure ghee and love.", "Food");
 INSERT INTO item (item_name, stall_id, price, image, description, item_type) VALUES ("Water Bottle", 1, 100, "https://www.chitrasfoodbook.com%2F2016%2F07%2Fdal-baati-recipe-rajasthani-dal-bati.html&docid=UvTXsFvplqhJBM&tbnid=LaHqMGV7pkwFpM&vet=12ahUKEwjwlNTM0ZaHAxWon2MGHZnALLgQM3oECGEQAA..i&w=500&h=633&hcb=2&ved=2ahUKEwjwlNTM0ZaHAxWon2MGHZnALLgQM3oECGEQAA", "Thanda Pani Straight from Rajasthan", "Food");
+
+INSERT INTO `order` (user_id, ticket_id, order_status, stall_Id) VALUES (1, 1, "Order Placed", 1);

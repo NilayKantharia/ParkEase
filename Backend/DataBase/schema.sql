@@ -49,24 +49,6 @@ CREATE TABLE stall(
     stall_type ENUM('Food', 'Others')
 );
 
-
--- Order Table
-CREATE TABLE `order` (
-    order_id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT,
-    ticket_id INT,
-    order_placed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    order_status VARCHAR(50) NOT NULL,
-    stall_id INT,
-    FOREIGN KEY (user_id) REFERENCES user(user_id),
-    FOREIGN KEY (ticket_id) REFERENCES ticket(ticket_id),
-    FOREIGN KEY (stall_id) REFERENCES stall(stall_id)
-);
-
-CREATE INDEX idx_order_user_id ON `order` (user_id);
-CREATE INDEX idx_order_ticket_id ON `order` (ticket_id);
-CREATE INDEX idx_order_stall_id ON `order` (stall_id);
-
 -- Items Table
 CREATE TABLE item(
     item_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -81,19 +63,36 @@ CREATE TABLE item(
 
 CREATE INDEX idx_item_stall_id ON item(stall_id);
 
+-- Order Table
+CREATE TABLE `order` (
+    order_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT,
+    ticket_id INT,
+    order_placed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    order_status VARCHAR(50) DEFAULT 'Order Placed',
+    stall_id INT,
+    FOREIGN KEY (user_id) REFERENCES user(user_id),
+    FOREIGN KEY (ticket_id) REFERENCES ticket(ticket_id),
+    FOREIGN KEY (stall_id) REFERENCES stall(stall_id)
+);
+
+CREATE INDEX idx_order_user_id ON `order` (user_id);
+CREATE INDEX idx_order_ticket_id ON `order` (ticket_id);
+CREATE INDEX idx_order_stall_id ON `order` (stall_id);
+
 
 -- OrderItems Table
-CREATE TABLE orderitem(
-    orderItem INT AUTO_INCREMENT PRIMARY KEY,
+CREATE TABLE order_item(
+    order_item_id INT AUTO_INCREMENT PRIMARY KEY,
     order_id INT,
     item_id INT,
-    quantity INT NOT NULL,
+    quantity INT DEFAULT 1,
     FOREIGN KEY (order_id) REFERENCES `order` (order_id),
     FOREIGN KEY (item_id) REFERENCES item (item_id)
 );
 
-CREATE INDEX idx_orderitem_order_id ON orderitem (order_id);
-CREATE INDEX idx_orderitem_item_id ON orderitem (item_id);
+CREATE INDEX idx_order_item_order_id ON order_item (order_id);
+CREATE INDEX idx_orderitem_item_id ON order_item (item_id);
 
 
 
