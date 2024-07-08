@@ -1,5 +1,6 @@
 const express = require('express');
 const path = require('path');
+const cors = require('cors');
 const userRouter = require('./routes/user');
 const ticketRouter = require('./routes/ticket');
 const orderRouter = require('./routes/order');
@@ -15,6 +16,7 @@ app.set('views', path.join(__dirname, 'views'));
 //Middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(cors());
 
 //Routes
 app.use('/ticket', ticketRouter);

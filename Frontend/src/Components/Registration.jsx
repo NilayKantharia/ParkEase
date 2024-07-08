@@ -103,15 +103,14 @@ export default function Registration() {
     }
 
     const userData = {
-      user_name: fullname,
-      username,
-      password,
-      mail_id: email,
-      phone_no: phone,
+      username: username,
+      password: password,
+      email: email,
+      phoneNO: phone,
     };
 
     try {
-      const response = await axios.post('http://localhost:5000/register', userData);
+      const response = await axios.post('http://localhost:8000/signup', userData);
       console.log(response.data);
     } catch (error) {
       console.error('Registration failed:', error);
