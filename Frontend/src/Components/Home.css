@@ -1,0 +1,38 @@
+.home-container {
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    align-items: left;
+    text-align: left;
+    padding-top: 4rem;
+    padding-left: 100px;
+  }
+  
+  .home-content {
+    max-width: 600px;
+    margin-top: 200px;
+  }
+  
+  .home-content h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+  
+  .home-content p {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  
+  .home-button {
+    background: #ffd700;
+    padding: 0.75rem 1.5rem;
+    color: #000;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 5px;
+  }
+  
