@@ -1,7 +1,25 @@
 const connection = require('../connection');
 
 const handleNewOrder = (req, res) => {
+    const query = "INSERT INTO `order` (user_id, ticket_id, stall_id) VALUES (?, ?, ?);"
+    const {user_id, ticket_id, stall_id, orderItems} = req.body;
+    connection.query(query, [user_id, ticket_id, stall_id], (err, result) => {
+        if(err) {
+            return res.json(err);
+        }
+        const order_id = result.insertId;
 
+        orderItems.forEach(item => {
+            const {item_id, quantity} = item;
+            const query = "INSERT INTO order_item (order_id, item_id, quantity) VALUES (?, ?, ?);"
+            connection.query(query, [order_id, item_id, quantity], (err, result) => {
+                if(err) {
+                    return res.json(err);
+                }
+            });
+        });
+        return res.json("success");
+    });
 };
 
 const handleAllFoodDetails = (req, res) => {
