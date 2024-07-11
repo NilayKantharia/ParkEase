@@ -9,7 +9,7 @@ const handleNewOrder = (req, res) => {
         }
         const order_id = result.insertId;
 
-        orderItems.forEach(item => {
+        orderItems.map(item => {
             const {item_id, quantity} = item;
             const query = "INSERT INTO order_item (order_id, item_id, quantity) VALUES (?, ?, ?);"
             connection.query(query, [order_id, item_id, quantity], (err, result) => {
