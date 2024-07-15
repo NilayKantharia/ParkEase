@@ -36,7 +36,7 @@ const handleUserLogin = (req, res) => {
             return res.status(500).json({ error: 'Database query error' });
         }
         if (results.length > 0) {
-            res.json({ message: 'Login successful' });
+            res.status(200).json({success: true, message: 'Login successful'});
 
         } else {
     
