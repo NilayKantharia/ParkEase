@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Input, Button, Container, Typography, Box, Alert } from '@mui/material';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate, useLocation} from 'react-router-dom';
 import Navbar from './Navbar';
 
 export default function LoginPage() {
@@ -9,6 +9,10 @@ export default function LoginPage() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  
+  // store path location
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -26,12 +30,12 @@ export default function LoginPage() {
     setError('');
 
     try {
-      const response = await axios.post('http://localhost:5000/login', { username, password });
+      const response = await axios.post('http://localhost:8000/login', { username, password });
       if (response.data.success) {
         setSuccess('Login successful');
         setError('');
-        // Redirect to another page or perform any other action upon successful login
-        <NavLink to="/Home" activeClassName = "active" exact>Home</NavLink>
+        const from = location.state?.from?.pathname || '/';
+        navigate(from);
       } else {
         setError('Invalid username or password');
         setSuccess('');

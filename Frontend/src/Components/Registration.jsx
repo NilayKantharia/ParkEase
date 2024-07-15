@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { TextField, Button, Container, Typography, Box, Alert } from '@mui/material';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate, useLocation } from 'react-router-dom';
 import Navbar from './Navbar';
 
 export default function Registration() {
@@ -19,6 +19,10 @@ export default function Registration() {
   const [emailError, setEmailError] = useState('');
   const [phoneError, setPhoneError] = useState('');
   const [formError, setFormError] = useState('');
+
+  // store path location
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -112,10 +116,13 @@ export default function Registration() {
     try {
       const response = await axios.post('http://localhost:8000/signup', userData);
       console.log(response.data);
+      const from = location.state?.from?.pathname || '/';
+      navigate(from);
     } catch (error) {
       console.error('Registration failed:', error);
       setFormError('Registration failed. Please try again.'); 
     }
+    
   };
 
   // const handleReset = () => {
