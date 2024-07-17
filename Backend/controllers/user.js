@@ -15,7 +15,7 @@ const handleUserSignup = (req, res) => {
             console.error('Failed to insert data into user table:', err);
             return res.status(500).json({ error: 'Failed to insert data into user table' });
         }
-        res.end("Signin done");
+        res.json({success: true, message: 'Login successful'});
         
     });
 }
