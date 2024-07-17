@@ -2,7 +2,8 @@ import React from "react";
 import backgroundImage from "../Images/homeImageParkEase.jpg";
 import "./Home.css";
 import Navbar from "./Navbar";
-
+import Explore from "./Explore";
+import Event from "./Event";
 const Home = () => {
   return (
     <>
@@ -18,6 +19,12 @@ const Home = () => {
             Read More
           </a>
         </div>
+      </div>
+      <div id="explore-section">
+        <Explore />
+      </div>
+      <div id="event-section">
+        <Event/>
       </div>
     </>
   );

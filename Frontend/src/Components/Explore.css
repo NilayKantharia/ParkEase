@@ -1,0 +1,22 @@
+.explore-container{
+    background-color: #9a6cac;
+    color: white;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  h1{
+    margin-top: 4.5rem;
+  }
+  
+  .explore {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  

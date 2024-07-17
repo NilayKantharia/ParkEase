@@ -16,10 +16,14 @@
     font-weight: bold;
     display: flex;
     justify-content: left;
+    height: auto;
+    
   }
 .navbar-logo img {
   width: 200px; 
   height: auto;
+  object-fit:contain;
+
 }
 
   
@@ -48,3 +52,21 @@
     background: #ffd700;
   }
   
+  .link-section{
+    font-weight: 300;
+    display: flex;
+    font-size: 0.9rem;
+    align-items: center;
+    flex-direction: row;
+    gap: 1rem;
+    margin-left: 2rem;
+    cursor:default;
+  }
+  .link-section a{
+    all: unset;
+  }
+
+  .link-section a:hover{
+    color: #ffd700;
+    cursor:default;
+  }

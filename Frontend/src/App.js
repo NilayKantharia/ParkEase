@@ -6,6 +6,7 @@ import Registration from './Components/Registration';
 import LoginPage from './Components/LoginPage';
 import Home from './Components/Home';
 import BookATicket from './Components/BookATicket';
+import FoodBookingForm from './Components/FoodBookingForm';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/Registraion" element={<Registration />} />
         <Route path="/LoginPage"  element={<LoginPage />} />
         <Route path="/BookATicket" element={<BookATicket />} />
+        <Route path="/FoodBookingForm" element={<FoodBookingForm />} />
       </Routes>
     </Router>
   );
