@@ -6,6 +6,7 @@ CREATE TABLE user(
     password VARCHAR(255) NOT NULL,
     mail_id VARCHAR(255) UNIQUE NOT NULL,
     phone_no VARCHAR(10) UNIQUE NOT NULL,
+    role ENUM('admin', 'customer', 'hr', 'stallexecutive'),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
