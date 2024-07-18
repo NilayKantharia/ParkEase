@@ -1,4 +1,5 @@
 const connection = require('../connection');
+const { setUser } = require('../services/auth');
 
 //Signup Controllers
 const handleUserSignupForm = (req, res) => {
@@ -36,6 +37,9 @@ const handleUserLogin = (req, res) => {
             return res.status(500).json({ error: 'Database query error' });
         }
         if (results.length > 0) {
+            user = results[0]
+            token = setUser(user);
+            res.cookie('uid', token);
             res.status(200).json({success: true, message: 'Login successful'});
 
         } else {
