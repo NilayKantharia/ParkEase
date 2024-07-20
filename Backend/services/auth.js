@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const secret = "Pinki ki bhi pink nahi hai, purple hai";
 
-function setUser(user){
+const setUser = (user) => {
     payload = {
         id : user.user_id,
         email : user.mail_id,
@@ -10,7 +10,7 @@ function setUser(user){
     return jwt.sign(payload, secret);
 }
 
-function getUser(token) {
+const getUser = (token) => {
     try{
         if(!token) return;
         return jwt.verify(token, secret);
