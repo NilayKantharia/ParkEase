@@ -4,6 +4,7 @@ const cors = require('cors');
 const userRouter = require('./routes/user');
 const ticketRouter = require('./routes/ticket');
 const orderRouter = require('./routes/order');
+const stallRouter = require('./routes/stall');
 
 const app = express();
 const port = 8000;
@@ -19,8 +20,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 //Routes
-app.use('/ticket', ticketRouter);
+app.use('/tickets', ticketRouter);
 app.use('/order', orderRouter);
+app.use('/stalls', stallRouter);
 app.use('/', userRouter); 
 
 //Starting the server
