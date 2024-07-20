@@ -1,4 +1,4 @@
-const connection = require('../connection');
+const connection = require('../config/connection');
 
 const handleNewOrder = (req, res) => {
     const query = "INSERT INTO `order` (user_id, ticket_id, stall_id) VALUES (?, ?, ?);"

@@ -1,4 +1,4 @@
-const connection = require('../connection');
+const connection = require('../config/connection');
 const { setUser } = require('../services/auth');
 
 //Signup Controllers

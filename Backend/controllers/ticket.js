@@ -1,4 +1,4 @@
-const connection = require('../connection');
+const connection = require('../config/connection');
 
 //Book ticket Controller
 const handleBookTicket = (req, res) => {

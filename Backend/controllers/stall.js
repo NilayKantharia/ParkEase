@@ -1,4 +1,4 @@
-const connection = require('../connection');
+const connection = require('../config/connection');
 
 //Show All Stalls Controller
 const index = (req, res) => {
