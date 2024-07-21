@@ -5,6 +5,7 @@ const userRouter = require('./routes/user');
 const ticketRouter = require('./routes/ticket');
 const orderRouter = require('./routes/order');
 const stallRouter = require('./routes/stall');
+const employeeRouter = require('./routes/employee');
 
 const app = express();
 const port = 8000;
@@ -23,6 +24,7 @@ app.use(cors());
 app.use('/tickets', ticketRouter);
 app.use('/order', orderRouter);
 app.use('/stalls', stallRouter);
+app.use('/employees', employeeRouter);
 app.use('/', userRouter); 
 
 //Starting the server
