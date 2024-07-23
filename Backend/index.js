@@ -6,6 +6,7 @@ const ticketRouter = require('./routes/ticket');
 const orderRouter = require('./routes/order');
 const stallRouter = require('./routes/stall');
 const employeeRouter = require('./routes/employee');
+const itemRouter = require('./routes/item');
 const cookieParser = require('cookie-parser');
 
 const app = express();
@@ -27,6 +28,7 @@ app.use('/tickets', ticketRouter);
 app.use('/orders', orderRouter);
 app.use('/stalls', stallRouter);
 app.use('/employees', employeeRouter);
+app.use('/items', itemRouter);
 app.use('/', userRouter); 
 
 //Starting the server
