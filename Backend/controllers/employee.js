@@ -50,9 +50,21 @@ const handleDeleteEmployee = (req, res) => {
     });
 }
 
+//View All Employees Controller
+const handleViewAllEmployees = (req, res) => {
+    const query = 'SELECT * FROM employee;';
+    connection.query(query, (err, result) => {
+        if(err){
+            return res.status(400).json(err);
+        }
+        return res.status(200).json(result);
+    })
+}
+
 module.exports = {
     handleAddNewEmployee,
     handleEditEmployeeDetails,
     handleGetEmployeeDetails,
-    handleDeleteEmployee
+    handleDeleteEmployee,
+    handleViewAllEmployees
 }
