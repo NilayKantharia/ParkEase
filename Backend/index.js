@@ -8,6 +8,7 @@ const stallRouter = require('./routes/stall');
 const employeeRouter = require('./routes/employee');
 const itemRouter = require('./routes/item');
 const cookieParser = require('cookie-parser');
+const hrRouter = require('./routes/hr'); 
 
 const app = express();
 const port = 8000;
@@ -30,6 +31,7 @@ app.use('/stalls', stallRouter);
 app.use('/employees', employeeRouter);
 app.use('/items', itemRouter);
 app.use('/', userRouter); 
+app.use('/hrs', hrRouter);
 
 //Starting the server
 app.listen(port, () => {

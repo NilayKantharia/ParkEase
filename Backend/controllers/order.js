@@ -55,8 +55,44 @@ const handleOrderHistory = (req, res) => {
     })
 }
 
+const statusUpdate =async(req,res)=>{
+    
+        const { orderId, newStatus } = req.body;
+    
+        if (!orderId || !newStatus) {
+            return res.status(400).json({ success: false, message: 'Order ID and new status are required.' });
+        }
+    
+        // Define allowed statuses if needed
+        const allowedStatuses = ['Order Placed', 'Processing', 'Completed', 'Cancelled'];
+    
+        if (!allowedStatuses.includes(newStatus)) {
+            return res.status(400).json({ success: false, message: 'Invalid order status.' });
+        }
+    
+        try {
+            // Update the order status in the database
+            const [result] = await db.query(
+                'UPDATE `order` SET order_status = ?, updated_at = NOW() WHERE order_id = ?',
+                [newStatus, orderId]
+            );
+    
+            if (result.affectedRows === 0) {
+                return res.status(404).json({ success: false, message: 'Order not found.' });
+            }
+    
+            return res.status(200).json({ success: true, message: 'Order status updated successfully.' });
+        } catch (error) {
+            console.error('Error updating order status:', error);
+            return res.status(500).json({ success: false, message: 'Server error', error: error.message });
+        }
+
+    
+}
+
 module.exports = {
     handleNewOrder,
     handleAllFoodDetails,
-    handleOrderHistory
+    handleOrderHistory,
+    statusUpdate
 }
