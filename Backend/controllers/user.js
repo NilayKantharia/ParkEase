@@ -8,12 +8,11 @@ const handleUserSignupForm = (req, res) => {
 
 const handleUserSignup = (req, res) => {
     const {username,password,email,phoneNO} = req.body;
-    const insertQuery=`INSERT INTO user (user_name,password,mail_id, phone_no) VALUES (?,?,?,?)`;
+    const insertQuery=`INSERT INTO user (user_name,password,mail_id, phone_no, role) VALUES (?, ?, ?, ?, "customer")`;
     const values = [username,password,email,phoneNO];
 
     connection.query(insertQuery,values,(err, result) => {
         if (err) {
-            console.error('Failed to insert data into user table:', err);
             return res.status(500).json({ error: 'Failed to insert data into user table' });
         }
         res.json({success: true, message: 'Login successful'});

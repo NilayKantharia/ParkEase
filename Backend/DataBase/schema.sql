@@ -127,3 +127,13 @@ CREATE TABLE employee(
 
 CREATE INDEX idx_employee_email ON employee(emp_mail);
 CREATE INDEX idx_employee_phone_no ON employee(phone_no);
+
+CREATE TABLE stall_executive (
+    stall_executive_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT,
+    stall_id INT,
+    FOREIGN KEY (user_id) REFERENCES user(user_id),
+    FOREIGN KEY (stall_id) REFERENCES stall(stall_id)
+);
+CREATE INDEX idx_stall_executive_user_id ON stall_executive(user_id);
+CREATE INDEX idx_stall_executive_stall_id ON stall_executive(stall_id);

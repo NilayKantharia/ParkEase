@@ -1,7 +1,7 @@
 const connection = require('../config/connection');
 
 const showAllHr=(req,res)=>{
-    const query="SELECT * FROM user where (role=='hr')";
+    const query="SELECT * FROM user where role='hr'";
     connection.query(query,(err,results)=>{
         if(err){
             return res.status(500).json({ error: err.message });
