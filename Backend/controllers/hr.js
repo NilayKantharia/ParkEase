@@ -11,7 +11,7 @@ const showAllHr=(req,res)=>{
     
 }
 
-const handleAddHr = (req, res) => {
+const handleAddNewHr = (req, res) => {
     const { user_name, password, mail_id, phone_no } = req.body;
     const query = "INSERT INTO user (user_name, password, mail_id, phone_no, role) VALUES (?, ?, ?, ?, 'hr')";
     connection.query(query, [user_name, password, mail_id, phone_no], (err, results) => {
@@ -22,7 +22,7 @@ const handleAddHr = (req, res) => {
     });
 };
 
-const handleDelHr = (req, res) => {
+const handleDeleteHr = (req, res) => {
     const { hrId } = req.params;
     const query = "DELETE FROM user WHERE user_id = ? AND role = 'hr'";
     connection.query(query, [hrId], (err, results) => {
@@ -36,7 +36,7 @@ const handleDelHr = (req, res) => {
     });
 };
 
-const updateHr = (req, res) => {
+const handleUpdateHr = (req, res) => {
     const { hrId } = req.params;
     const { user_name, password, mail_id, phone_no } = req.body;
     const query = "UPDATE user SET user_name = ?, password = ?, mail_id = ?, phone_no = ? WHERE user_id = ? AND role = 'hr'";
@@ -52,4 +52,9 @@ const updateHr = (req, res) => {
     });
 };
 
-module.exports={showAllHr,handleAddHr,handleDelHr,updateHr}
+module.exports={
+    showAllHr,
+    handleAddNewHr,
+    handleDeleteHr,
+    handleUpdateHr
+}

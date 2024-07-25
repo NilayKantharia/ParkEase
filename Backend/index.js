@@ -30,8 +30,8 @@ app.use('/orders', orderRouter);
 app.use('/stalls', stallRouter);
 app.use('/employees', employeeRouter);
 app.use('/items', itemRouter);
-app.use('/', userRouter); 
 app.use('/hrs', hrRouter);
+app.use('/', userRouter); 
 
 //Starting the server
 app.listen(port, () => {
