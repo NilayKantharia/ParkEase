@@ -4,13 +4,15 @@ const multer = require('multer');
 const {storage} = require('../config/cloudConfig');
 const upload = multer({storage});
 const {index, handleAddNewStall, handleDeleteStall, handleUpdateStall} = require('../controllers/stall')
+const { authenticate, authorize} = require('../middlewares/auth');
+const allowedRoles=['stallexecutive','admin']
 
 router.route('/')
     .get(index)
-    .post(handleAddNewStall)
+    .post(authenticate,authorize(allowedRoles),handleAddNewStall)
 
 router.route('/:stallId')
-    .delete(handleDeleteStall)
+    .delete(authenticate,authorize(allowedRoles),handleDeleteStall)
     .put(handleUpdateStall)
 
 module.exports = router;
