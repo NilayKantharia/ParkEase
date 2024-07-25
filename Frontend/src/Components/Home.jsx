@@ -4,6 +4,7 @@ import "./Home.css";
 import Navbar from "./Navbar";
 import Explore from "./Explore";
 import Event from "./Event";
+import HomeEnquirySection from "./Enquiry";
 const Home = () => {
   return (
     <>
@@ -25,6 +26,9 @@ const Home = () => {
       </div>
       <div id="event-section">
         <Event/>
+      </div>
+      <div id="enquiry-section">
+        <HomeEnquirySection/>
       </div>
     </>
   );

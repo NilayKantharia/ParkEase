@@ -1,4 +1,3 @@
-// Explore.js
 import React from 'react';
 import './Event.css';
 import Card from './Card';

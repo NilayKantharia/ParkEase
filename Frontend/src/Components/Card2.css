@@ -6,7 +6,16 @@
     margin: 1rem 10rem;
   }
   
-  img {
+  .event-image {
     height: 200px;
+    padding: 2rem;
+    /* box-shadow: 2px 4px 8px rgb(117, 74, 141); */
+    margin: 2rem;
+    transition: ease-in 0.1s;
   }
-  
+  .event-image:hover{
+    transform: scale(1.1);
+    transition: ease-in-out 0.1s;
+    cursor: pointer;
+
+  }

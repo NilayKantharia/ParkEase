@@ -6,18 +6,21 @@ import Registration from './Components/Registration';
 import LoginPage from './Components/LoginPage';
 import Home from './Components/Home';
 import BookATicket from './Components/BookATicket';
-import FoodBookingForm from './Components/FoodBookingForm';
-
+import BookOrder from './Components/BookOrder';
+import MyOrders from './Components/MyOrders';
+import Cart from './Components/cart';
 function App() {
   return (
     <Router>
       {/* <Navbar /> */}
       <Routes>
-        <Route path="/" element={<Home />}></Route>
-        <Route path="/Registraion" element={<Registration />} />
-        <Route path="/LoginPage"  element={<LoginPage />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/Registration" element={<Registration />} />
+        <Route path="/LoginPage" element={<LoginPage />} />
         <Route path="/BookATicket" element={<BookATicket />} />
-        <Route path="/FoodBookingForm" element={<FoodBookingForm />} />
+        <Route path="/BookOrder" element={<BookOrder />} />
+        <Route path="/my-orders" element={<MyOrders />} />
+        <Route path="/cart" element={<Cart />} />
       </Routes>
     </Router>
   );

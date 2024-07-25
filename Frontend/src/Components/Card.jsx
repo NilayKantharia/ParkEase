@@ -6,7 +6,7 @@ import cardImage from "../Images/roller.jpg";
 const Card = () => {
   return (
     <div className="card">
-      <img src={cardImage} alt="loading error" />
+      <img className='explore-image' src={cardImage} alt="loading error" />
       <p>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam dolorem
         ut laudantium voluptatum modi inventore deserunt, commodi expedita

@@ -85,7 +85,7 @@ export default function LoginPage() {
               <Button type="submit" variant="contained" color="primary" fullWidth>
                 Login
               </Button>
-              <h3>Don't have an account? <NavLink to="/Registraion" activeClassName="active" exact>Sign up</NavLink></h3>
+              <h3>Don't have an account? <NavLink to="/Registration" activeClassName="active" exact>Sign up</NavLink></h3>
             </Box>
           </form>
         </Box>

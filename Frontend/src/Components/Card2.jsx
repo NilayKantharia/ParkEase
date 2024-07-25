@@ -1,4 +1,3 @@
-// Card.js
 import React from 'react';
 import './Card2.css';
 import cardImage from "../Images/roller.jpg";
@@ -14,7 +13,7 @@ const Card2 = () => {
         Sed architecto, sunt praesentium dignissimos natus ab doloremque,
         minima quidem cupiditate earum eaque voluptas quia.
       </p>
-      <img src={cardImage} alt="loading Error" />
+      <img className='event-image' src={cardImage} alt="loading Error" />
     </div>
   );
 };

@@ -4,6 +4,11 @@ import { TextField, Button, Container, Typography, Box, Alert } from '@mui/mater
 import { NavLink, useNavigate, useLocation } from 'react-router-dom';
 import Navbar from './Navbar';
 
+// im working on nee designs, so if there any problem occured. check this section
+
+
+// 
+
 export default function Registration() {
   const [fullname, setFullname] = useState('');
   const [username, setUsername] = useState('');
