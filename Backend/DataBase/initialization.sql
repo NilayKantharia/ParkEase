@@ -22,8 +22,7 @@ VALUES
 
 INSERT INTO ticket_type (ticket_type_name, ticket_type_price, ticket_type_short_description, ticket_type_description)
 VALUES 
-('Regular', 20.00, 'Regular ticket', 'Access to all general areas'),
-('VIP', 50.00, 'VIP ticket', 'Access to VIP areas and free refreshments');
+('Platinum', 2500.00, 'VIP ticket', 'Access to VIP areas and free refreshments');
 
 
 INSERT INTO ticket (ticket_type_id, ticket_price, no_of_members, user_id, booked_for)

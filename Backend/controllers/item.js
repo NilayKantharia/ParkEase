@@ -17,8 +17,18 @@ const renderNew = (req, res) => {
     res.render("./newItem");
 }
 
+const handleFetchAllItem = (req, res) => {
+    const query = 'SELECT * FROM item;'
+    connection.query(query, (err, result) => {
+        if(err){
+            return res.status(400).json(err);
+        }
+        return res.status(200).json(result);
+    })
+}
 
 module.exports = {
     handleAddNewItem,
-    renderNew
+    renderNew,
+    handleFetchAllItem
 }

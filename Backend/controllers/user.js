@@ -26,11 +26,11 @@ const handleUserLoginForm = (req, res) => {
 };
 
 const handleUserLogin = (req, res) => {
-    const { username, password } = req.body;
+    const { mailId, password } = req.body;
 
-    const query = 'SELECT * FROM user WHERE user_name = ? AND password = ?';
+    const query = 'SELECT * FROM user WHERE mail_id = ? AND password = ?';
 
-    connection.query(query, [username, password], (err, results) => {
+    connection.query(query, [mailId, password], (err, results) => {
         if (err) {
             console.error('Database query error:', err);
             return res.status(500).json({ error: 'Database query error' });
