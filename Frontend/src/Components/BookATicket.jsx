@@ -1,25 +1,35 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./BookATicket.css";
 import Navbar from "./Navbar";
+import axios from "axios";
 
 function BookATicket() {
+  const [ticketData, setTicketData] = useState([]);
   const [ticketType, setTicketType] = useState("");
   const [adults, setAdults] = useState(0);
   const [kids, setKids] = useState(0);
-  const [showDetails, setShowDetails] = useState({
-    Silver: false,
-    Gold: false,
-    Platinum: false,
-  });
+  const [showDetails, setShowDetails] = useState({});
 
-  const prices = {
-    Silver: 50,
-    Gold: 100,
-    Platinum: 150,
-  };
+  useEffect(() => {
+    // Fetch ticket data from the backend
+    axios.get('http://localhost:8000/tickets/view')
+      .then(response => {
+        const tickets = response.data;
+        setTicketData(tickets);
+        // Initialize showDetails with ticket types
+        const initialDetails = tickets.reduce((acc, ticket) => {
+          acc[ticket.ticket_type_name] = false;
+          return acc;
+        }, {});
+        setShowDetails(initialDetails);
+      })
+      .catch(error => {
+        console.error("Error fetching ticket data:", error);
+      });
+  }, []);
 
   const totalMembers = adults + kids;
-  const totalPrice = totalMembers * prices[ticketType];
+  const totalPrice = ticketData.find(ticket => ticket.ticket_type_name === ticketType)?.ticket_type_price * totalMembers || 0;
 
   const handleTicketTypeChange = (event) => {
     setTicketType(event.target.value);
@@ -38,7 +48,7 @@ function BookATicket() {
   };
 
   const toggleDetails = (type) => {
-    setShowDetails((prevDetails) => ({
+    setShowDetails(prevDetails => ({
       ...prevDetails,
       [type]: !prevDetails[type],
     }));
@@ -47,54 +57,53 @@ function BookATicket() {
   return (
     <>
       <Navbar />
-      <div className="main-container">
+      <div className="main-container container col-lg-8 col-md-12 col-sm-12 p-4">
         <div className="sub-container">
           <h2 id="heading">Book Ticket</h2>
-          <div className="ticket-types">
-            {["Silver", "Gold", "Platinum"].map((type) => (
+          <div className="ticket-types row">
+            {ticketData.map((ticket) => (
               <div
-                key={type}
-                className={`ticket-card ${type.toLowerCase()} ${
-                  ticketType === type ? "selected" : ""
-                }`}
+                key={ticket.ticket_type_id}
+                className={`ticket-card ${ticket.ticket_type_name.toLowerCase()} ${
+                  ticketType === ticket.ticket_type_name ? "selected" : ""
+                } col-lg-3 mb-sm-3 mb-md-3 mx-auto rounded-3 p-3`}
               >
-                <h3>{type}</h3>
-                <p>Price: ${prices[type]}</p>
+                <h3>{ticket.ticket_type_name}</h3>
+                <p>Price: &#x20B9;{ticket.ticket_type_price}</p>
                 <p>
-                  Description: Lorem ipsum dolor sit amet consectetur,
-                  adipisicing elit. Quidem, veritatis!
-                  <button onClick={() => toggleDetails(type)}>
-                    {showDetails[type] ? "Show Less" : "Learn More"}
+                  {ticket.ticket_type_short_description}
+                  <button className="show-more col-3" onClick={() => toggleDetails(ticket.ticket_type_name)}>
+                    {showDetails[ticket.ticket_type_name] ? "Show Less" : "Learn More"}
                   </button>
                 </p>
-                {showDetails[type] && (
+                {showDetails[ticket.ticket_type_name] && (
                   <div className="glassmorphism-modal">
                     <div className="modal-content">
-                      <h3>{type} Ticket Details</h3>
-                      <p>Detailed information about the {type} ticket...</p>
-                      <button onClick={() => toggleDetails(type)}>Close</button>
+                      <h3>{ticket.ticket_type_name} Ticket Details</h3>
+                      <p>{ticket.ticket_type_description}</p>
+                      <button onClick={() => toggleDetails(ticket.ticket_type_name)}>Close</button>
                     </div>
                   </div>
                 )}
                 <label>
                   <input
                     type="radio"
-                    value={type}
-                    checked={ticketType === type}
+                    value={ticket.ticket_type_name}
+                    checked={ticketType === ticket.ticket_type_name}
                     onChange={handleTicketTypeChange}
                   />
-                  Select {type}
+                  Select {ticket.ticket_type_name}
                 </label>
               </div>
             ))}
           </div>
-          <div className="quantity-and-description">
-            <fieldset className="quantity">
+          <div className="quantity-and-description mt-3 row">
+            <fieldset className="quantity row mb-5">
               <legend>Quantity</legend>
-              <label>
+              <label className="col-6">
                 Adults:
                 <input
-                  className="adult"
+                  className="adult col-12"
                   type="number"
                   value={adults}
                   onChange={handleAdultsChange}
@@ -102,10 +111,10 @@ function BookATicket() {
                   required
                 />
               </label>
-              <label>
+              <label className="col-6">
                 Kids:
                 <input
-                  className="kid"
+                  className="kid col-12"
                   type="number"
                   value={kids}
                   onChange={handleKidsChange}
@@ -114,13 +123,14 @@ function BookATicket() {
                 />
               </label>
             </fieldset>
-            <div className="summary">
+            <legend>Summary</legend>
+            <div className="summary mb-3">
               <p>Total Members: {totalMembers}</p>
-              <p>Price per Person: ${prices[ticketType]}</p>
-              <p>Total Price: ${totalPrice}</p>
+              <p>Price per Person: &#x20B9;{ticketData.find(ticket => ticket.ticket_type_name === ticketType)?.ticket_type_price || 0}</p>
+              <p>Total Price: &#x20B9;{totalPrice}</p>
             </div>
           </div>
-          <button onClick={handleProceedToPay}>Proceed to Pay</button>
+          <button className="ms-auto d-block" onClick={handleProceedToPay}>Proceed to Pay</button>
         </div>
       </div>
     </>

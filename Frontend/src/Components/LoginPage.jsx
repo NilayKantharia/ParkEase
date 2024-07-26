@@ -1,16 +1,17 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import { Input, Button, Container, Typography, Box, Alert } from '@mui/material';
-import { NavLink, useNavigate, useLocation} from 'react-router-dom';
-import Navbar from './Navbar';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { NavLink, useNavigate, useLocation } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.css";
+import "bootstrap/dist/js/bootstrap";
+import Navbar from "./Navbar";
 
 export default function LoginPage() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
-  
-  // store path location
+  const [mailId, setMailId] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+
+  // Store path location
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -18,78 +19,113 @@ export default function LoginPage() {
     event.preventDefault();
 
     // Basic validation
-    if (!username) {
-      setError('Please enter username.');
+    if (!mailId) {
+      setError("Please enter email.");
       return;
     }
     if (!password) {
-      setError('Please enter password.');
+      setError("Please enter password.");
       return;
     }
 
-    setError('');
+    setError("");
 
     try {
-      const response = await axios.post('http://localhost:8000/login', { username, password });
+      const response = await axios.post("http://localhost:8000/login", {
+        mailId,
+        password,
+      });
       if (response.data.success) {
-        setSuccess('Login successful');
-        setError('');
-        const from = location.state?.from?.pathname || '/';
+        setSuccess("Login successful");
+        setError("");
+        const from = location.state?.from?.pathname || "/";
         navigate(from);
       } else {
-        setError('Invalid username or password');
-        setSuccess('');
+        setError("Invalid email or password");
+        setSuccess("");
       }
     } catch (error) {
-      console.error('Login failed:', error);
-      setError('Login failed. Please try again.');
-      setSuccess('');
+      console.error("Login failed:", error);
+      console.log(error);
+      setError("Login failed. Please try again.");
+      setSuccess("");
     }
   };
 
+  useEffect(() => {
+    (() => {
+      window.addEventListener('load', () => {
+        const forms = document.getElementsByClassName('needs-validation');
+        Array.prototype.filter.call(forms, (form) => {
+          form.addEventListener('submit', (event) => {
+            if (form.checkValidity() === false) {
+              event.preventDefault();
+              event.stopPropagation();
+            }
+            form.classList.add('was-validated');
+          }, false);
+        });
+      });
+    })();
+  }, []);
+
   return (
     <>
+      <div className="form-container">
+
       <Navbar />
-      <Container maxWidth="sm">
-        <Box mt={25} p={3} bgcolor="white" boxShadow={3} borderRadius={3}>
-          <Typography variant="h4" gutterBottom>
-            Login
-          </Typography>
-          <Typography variant="subtitle1" gutterBottom>
-            Get Back to the Enjoyment Park
-          </Typography>
-          {error && <Alert severity="error">{error}</Alert>}
-          {success && <Alert severity="success">{success}</Alert>}
-          <form onSubmit={handleSubmit}>
-            <Input
-              fullWidth
-              type="text"
-              placeholder="Username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              margin="normal"
-              variant="outlined"
-              style={{ marginBottom: '1rem' }}
+      <div className="container-sm mx-auto border border-0 rounded-4 p-3 mb-lg-5 mb-md-5 bg-body-tertiary col-md-12 col-lg-4 col-sm-12">
+        <h4 className="display-3">Login</h4>
+        <p>Get Back to the Enjoyment Park</p>
+        {error && <div className="alert alert-danger">{error}</div>}
+        {success && <div className="alert alert-success">{success}</div>}
+        <form className="row needs-validation" onSubmit={handleSubmit} noValidate>
+          <div className="mb-3">
+            <label htmlFor="exampleInputEmail1" className="form-label">
+              Email address
+            </label>
+            <input
+              type="email"
+              placeholder="example@parkease.com"
+              value={mailId}
+              onChange={(e) => setMailId(e.target.value)}
+              className="form-control"
+              id="exampleInputEmail1"
+              aria-describedby="emailHelp"
+              required
             />
-            <Input
-              fullWidth
+            <div className="invalid-feedback">Please enter email.</div>
+            <div id="emailHelp" className="form-text">
+              We'll never share your email with anyone else.
+            </div>
+          </div>
+          <div className="mb-3">
+            <label htmlFor="exampleInputPassword1" className="form-label">
+              Password
+            </label>
+            <input
               type="password"
-              placeholder="Password"
+              placeholder="********"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              margin="normal"
-              variant="outlined"
-              style={{ marginBottom: '1rem' }}
+              className="form-control"
+              id="exampleInputPassword1"
+              required
             />
-            <Box mt={3}>
-              <Button type="submit" variant="contained" color="primary" fullWidth>
-                Login
-              </Button>
-              <h3>Don't have an account? <NavLink to="/Registration" activeClassName="active" exact>Sign up</NavLink></h3>
-            </Box>
-          </form>
-        </Box>
-      </Container>
+            <div className="invalid-feedback">Please enter password.</div>
+          </div>
+          <button type="submit" className="btn btn-primary mx-auto col-5">
+            Login
+          </button>
+        </form>
+        <p className="mt-3">
+          Don't have an account?{' '}
+          <NavLink to="/Registration" activeClassName="active" exact>
+            Sign up
+          </NavLink>
+        </p>
+      </div>
+      </div>
     </>
   );
 }

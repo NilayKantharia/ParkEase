@@ -1,38 +1,101 @@
+html,
+body {
+  width: 100%;
+  overflow-x: hidden;
+  height: auto;
+
+}
+
+html {
+  scrollbar-width: thin;
+}
+
 .home-container {
-    background-size: cover;
-    background-position: center;
-    height: 100vh;
-    color: #fff;
-    display: flex;
-    flex-direction: column;
-    justify-content: left;
-    align-items: left;
-    text-align: left;
-    padding-top: 4rem;
-    padding-left: 100px;
-  }
-  
-  .home-content {
-    max-width: 600px;
-    margin-top: 200px;
-  }
-  
+  background-size: cover;
+  background-position: center;
+  max-width: 100%;
+  height: 100vh;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  align-items: left;
+  text-align: left;
+  padding-top: 4rem;
+  padding-left: 100px;
+  background-repeat: no-repeat;
+  overflow-x: hidden;
+}
+
+.home-content {
+  max-width: 600px;
+  margin-top: 200px;
+}
+
+.home-content h1 {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+}
+
+.home-content p {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.home-button {
+  background: #ffd700;
+  padding: 0.75rem 1.5rem;
+  color: #000;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 5px;
+}
+
+.container-sm{
+  box-shadow: 0 4px 3px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  margin-top: 25vh;
+}
+
+.form-container{
+  overflow: hidden;
+}
+
+@media (max-width: 1100px) {
   .home-content h1 {
-    font-size: 3rem;
-    margin-bottom: 1rem;
+    font-size: 2rem;
+  }
+
+  .home-content {
+    margin-top: 10rem;
+  }
+
+  .home-container {
+    padding-left: 4em;
+  }
+
+  p {
+    font-size: 1rem;
+  }
+
+  .container-sm{
+    height: 80%;
+    width: 100;
+    margin: 0;
+    box-shadow: none;
+    margin-top: 15vh;
+  box-shadow: 0 4px 3px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  }
+}
+
+@media (max-width : 768px) {
+  .home-content{
+    margin-top: 3rem;
   }
   
-  .home-content p {
-    font-size: 1.5rem;
-    margin-bottom: 2rem;
+  .container-sm{
+    height: 92vh;
+    width: 100%;
+    box-shadow: none;
+    margin: 0;
   }
-  
-  .home-button {
-    background: #ffd700;
-    padding: 0.75rem 1.5rem;
-    color: #000;
-    text-decoration: none;
-    font-weight: bold;
-    border-radius: 5px;
-  }
-  
+}

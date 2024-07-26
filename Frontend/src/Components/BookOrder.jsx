@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 import "./BookOrder.css";
+import Navbar from "./Navbar";
 
 const BookOrder = () => {
   const [selectedStall, setSelectedStall] = useState("");
@@ -16,8 +17,8 @@ const BookOrder = () => {
     // Fetch stalls from backend
     const fetchStalls = async () => {
       try {
-        const response = await axios.get("http://localhost:8000/api/stalls");
-        console.log("Stalls:", response.data); // for Debugging
+        const response = await axios.get("http://localhost:8000/stalls");
+        console.log("Stalls:", response.data); // for debugging
         setStalls(response.data);
       } catch (error) {
         console.error("Error fetching stalls:", error);
@@ -32,10 +33,10 @@ const BookOrder = () => {
     const fetchItems = async () => {
       try {
         const url = selectedStall
-          ? `http://localhost:8000/api/items/stall/${selectedStall}`
-          : "http://localhost:8000/api/items";
+          ? `http://localhost:8000/items/${selectedStall}`
+          : "http://localhost:8000/items";
         const response = await axios.get(url);
-        console.log("Items:", response.data); // for Debugging
+        console.log("Items:", response.data); // for debugging
         setItems(response.data);
       } catch (error) {
         console.error("Error fetching items:", error);
@@ -54,6 +55,7 @@ const BookOrder = () => {
   };
 
   const handleAddToCart = (item, quantity) => {
+    // Add item to cart with the selected quantity
     setCart((prevCart) => [...prevCart, { ...item, quantity }]);
   };
 
@@ -62,54 +64,80 @@ const BookOrder = () => {
   };
 
   return (
-    <div className="book-order-container">
-      <div className="button-container">
-        <button onClick={handleMyOrdersClick}>Order History</button>
-        <select onChange={handleStallChange} value={selectedStall}>
-          <option value="">Select Stall</option>
-          {stalls.map((stall) => (
-            <option key={stall.stall_id} value={stall.stall_id}>
-              {stall.stall_name}
-            </option>
-          ))}
-        </select>
-
-        <div className="cart" onClick={handleGoToCart}>
-          <FontAwesomeIcon icon={faShoppingCart} /> Cart ({cart.length})
+    <>
+      <Navbar />
+      <div className="container mt-4">
+        <div className="d-flex justify-content-between align-items-center mb-4">
+          <button className="btn btn-primary" onClick={handleMyOrdersClick}>
+            Order History
+          </button>
+          <select
+            className="form-select"
+            onChange={handleStallChange}
+            value={selectedStall}
+          >
+            <option value="">Select Stall</option>
+            {stalls.map((stall) => (
+              <option key={stall.stall_id} value={stall.stall_id}>
+                {stall.stall_name}
+              </option>
+            ))}
+          </select>
+          <div
+            className="d-flex align-items-center cart"
+            onClick={handleGoToCart}
+            style={{ cursor: "pointer" }}
+          >
+            <FontAwesomeIcon icon={faShoppingCart} className="me-2" />
+            Cart ({cart.length})
+          </div>
+        </div>
+        <div className="row">
+          {items
+            .filter(item => !selectedStall || item.stall_id === selectedStall) // Filter items based on selected stall
+            .map((item) => (
+              <div className="col-md-4 mb-4" key={item.item_id}>
+                <div className="card">
+                  <div
+                    className="card-img-top"
+                    style={{
+                      backgroundImage: `url(${item.image})`,
+                      backgroundSize: 'cover',
+                      backgroundPosition: 'center',
+                      height: '200px',
+                      width: '100%',
+                      borderRadius: '0.25rem'
+                    }}
+                  ></div>
+                  <div className="card-body">
+                    <h5 className="card-title">{item.item_name}</h5>
+                    <p className="card-text">{item.description}</p>
+                    <p className="card-text">Price: &#x20B9;{item.price}</p>
+                    <input
+                      type="number"
+                      min="1"
+                      defaultValue="1"
+                      className="form-control mb-2"
+                      id={`quantity-${item.item_id}`}
+                    />
+                    <button
+                      className="btn btn-primary"
+                      onClick={() =>
+                        handleAddToCart(
+                          item,
+                          document.getElementById(`quantity-${item.item_id}`).value
+                        )
+                      }
+                    >
+                      Add to Cart
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
         </div>
       </div>
-      <div className="items-container">
-        {items.map((item) => (
-          <div className="item-card" key={item.item_id}>
-            <div
-              className="item-image"
-              style={{ backgroundImage: `url(${item.image})` }}
-            ></div>
-            <div className="item-details">
-              <h3>{item.item_name}</h3>
-              <p>{item.description}</p>
-              <p>Price: ${item.price}</p>
-              <input
-                type="number"
-                min="1"
-                defaultValue="1"
-                id={`quantity-${item.item_id}`}
-              />
-              <button
-                onClick={() =>
-                  handleAddToCart(
-                    item,
-                    document.getElementById(`quantity-${item.item_id}`).value
-                  )
-                }
-              >
-                Add to Cart
-              </button>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
+    </>
   );
 };
 

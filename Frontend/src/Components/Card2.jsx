@@ -1,21 +1,35 @@
-import React from 'react';
-import './Card2.css';
-import cardImage from "../Images/roller.jpg";
+import React from "react";
+import "bootstrap/dist/css/bootstrap.css";
+import "bootstrap/dist/js/bootstrap";
+import PropTypes from 'prop-types';
+import "./Card.css"
 
-const Card2 = () => {
+const Card2 = ({ image, title, text}) => {
   return (
-    <div className="card">
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam dolorem
-        ut laudantium voluptatum modi inventore deserunt, commodi expedita
-        quam a consequuntur sed est omnis explicabo doloribus officia
-        assumenda perspiciatis maiores doloremque, nisi eius laborum impedit!
-        Sed architecto, sunt praesentium dignissimos natus ab doloremque,
-        minima quidem cupiditate earum eaque voluptas quia.
-      </p>
-      <img className='event-image' src={cardImage} alt="loading Error" />
+    <div className="row">
+      <div className="col-10 mx-auto">
+        <div className="card mb-5 mt-5">
+          <div className="row g-0">
+            <div className="col-md-8">
+              <div className="card-body">
+                <h5 className="card-title">{title}</h5>
+                <p className="card-text">{text}</p>
+              </div>
+            </div>
+            <div className="col-md-4">
+              <img src={image} className="img-fluid rounded-end explore-image" alt="..." />
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
+};
+
+Card2.propTypes = {
+  image: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  text: PropTypes.string.isRequired
 };
 
 export default Card2;

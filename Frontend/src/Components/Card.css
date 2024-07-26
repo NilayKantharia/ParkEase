@@ -1,21 +1,14 @@
-.card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    flex-direction: row;
-    margin: 1rem 10rem;
-  }
-  
-  .explore-image {
-    height: 200px;
-    padding: 1rem;
-    /* box-shadow: 2px 4px 8px rgb(117, 74, 141); */
-    margin: 2rem;
-    transition: ease-in 0.1s;
-  }
-  .explore-image:hover{
-    transform: scale(1.1);
-    transition: ease-in-out 0.1s;
-    cursor: pointer;
-  }
-  
+.card-text{
+    font-size: larger;
+}
+
+.card-title{
+font-size: larger;
+}
+
+
+.explore-image {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}

@@ -1,173 +1,43 @@
-.main-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
+.ticket-card.silver {
+  background: linear-gradient(to bottom right, #ededed, #bdbdbd);
+}
+
+.ticket-card.gold {
+  background: linear-gradient(to bottom right, #f0e1af, #fcc201);
+}
+
+.ticket-card.platinum {
+  background: linear-gradient(to bottom right, #e5e4e2, #49e8f0);
+}
+
+.modal-content {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+  padding: 20px;
+  color: #fff;
+}
+
+.modal-content .btn-close {
+  background: transparent;
+  border: none;
+}
+
+.summary {
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
+}
+
+.show-more{
+  font-size:x-small;
+  width: auto;
+  background-color: transparent;
+  color: blue;
+  text-decoration-line: underline;
+}
+
+@media(max-width: 768px){
+  .ticket-card{
+    margin-bottom: 2rem;
   }
-  
-  .sub-container {
-    background-color: #fff;
-    border-radius: 15px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
-    width: 100%;
-    max-width: 768px;
-    padding: 20px;
-    box-sizing: border-box;
-  }
-  
-  h2#heading {
-    text-align: center;
-    margin-bottom: 20px;
-    text-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
-  }
-  
-  .ticket-types {
-    display: flex;
-    justify-content: space-between;
-    gap: 20px;
-  }
-  
-  .ticket-card {
-    border-radius: 15px;
-    padding: 20px;
-    width: 30%;
-    text-align: center;
-    color: #333;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    transition: background 0.3s ease, transform 0.3s ease;
-  }
-  
-  .ticket-card.selected {
-    border: 1px solid #000;
-    transform: scale(1.02);
-  }
-  
-  .ticket-card.silver {
-    background: linear-gradient(to bottom right, #ededed, #bdbdbd);
-  }
-  
-  .ticket-card.gold {
-    background: linear-gradient(to bottom right, #f0e1af, #fcc201);
-  }
-  
-  .ticket-card.platinum {
-    background: linear-gradient(to bottom right, #e5e4e2, #49e8f0);
-  }
-  
-  .glassmorphism-modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 9999;
-  }
-  
-  .modal-content {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 15px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    backdrop-filter: blur(10px);
-    padding: 20px;
-    width: 80%;
-    max-width: 500px;
-    text-align: center;
-    color: #fff;
-  }
-  
-  .modal-content h3 {
-    margin-top: 0;
-  }
-  
-  .modal-content button {
-    margin-top: 20px;
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .modal-content button:hover {
-    background-color: #0056b3;
-  }
-  
-  .quantity-and-description {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-  }
-  
-  .quantity {
-    margin: 20px 0;
-    border: 1px solid #000000;
-    border-radius: 8px;
-    padding: 10px;
-    width: 60%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .quantity legend {
-    font-weight: bold;
-    padding: 0 10px;
-    border: none;
-    margin-bottom: 10px;
-  }
-  
-  .quantity label {
-    display: block;
-    padding: 0.3rem;
-    font-size: 20px;
-  }
-  
-  .quantity label input {
-    all: unset;
-    padding: 10px;
-    box-shadow: 0 3px 7px rgba(0, 0, 0, 0.35);
-    border-radius: 10px;
-  }
-  
-  .summary {
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
-    display: flex;
-    flex-direction: column;
-    margin: 25px 0;
-    padding: 10px;
-    border-radius: 5px;
-    font-size: 16px;
-    width: auto;
-    box-sizing: border-box;
-    position: relative;
-    top: 0.3rem;
-  }
-  
-  .summary p {
-    margin: 0;
-    padding: 8px 0;
-    text-align: left;
-    width: 100%;
-  }
-  
-  button {
-    display: block;
-    margin: 10px auto;
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    box-shadow: 0 3px 7px rgba(0, 0, 0, 0.35);
-  }
-  
-  button:hover {
-    background-color: #0056b3;
-  }
-  
+}

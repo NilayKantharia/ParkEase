@@ -1,13 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { TextField, Button, Container, Typography, Box, Alert } from '@mui/material';
 import { NavLink, useNavigate, useLocation } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap/dist/js/bootstrap';
 import Navbar from './Navbar';
-
-// im working on nee designs, so if there any problem occured. check this section
-
-
-// 
 
 export default function Registration() {
   const [fullname, setFullname] = useState('');
@@ -25,7 +21,6 @@ export default function Registration() {
   const [phoneError, setPhoneError] = useState('');
   const [formError, setFormError] = useState('');
 
-  // store path location
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -74,7 +69,8 @@ export default function Registration() {
     if (!password) {
       setPasswordError('Please enter a password.');
       hasError = true;
-    }if (!confirmPassword){
+    }
+    if (!confirmPassword) {
       setConfirmPasswordError('Please enter the confirm password');
       hasError = true;
     } else if (password !== confirmPassword) {
@@ -125,126 +121,97 @@ export default function Registration() {
       navigate(from);
     } catch (error) {
       console.error('Registration failed:', error);
-      setFormError('Registration failed. Please try again.'); 
+      setFormError('Registration failed. Please try again.');
     }
-    
   };
-
-  // const handleReset = () => {
-  //   setFullname('');
-  //   setUsername('');
-  //   setPassword('');
-  //   setConfirmPassword('');
-  //   setEmail('');
-  //   setPhone('');
-  //   setFullnameError('');
-  //   setUsernameError('');
-  //   setPasswordError('');
-  //   setConfirmPasswordError('');
-  //   setEmailError('');
-  //   setPhoneError('');
-  //   setFormError('');
-  // };
 
   return (
     <>
-    <Navbar />
-    <Container  sx={{ width: '520px', height: '720px', mt: 2, p: 1, boxShadow: 3, borderRadius: 3 }}>
-      <Box sx={{ textAlign: 'left', mt: 2, mb: 2 }}>
-        <Typography variant="h4" gutterBottom>
-          Create an Account
-        </Typography>
-        <Typography variant="subtitle1.5" gutterBottom>
-          Create an account and start exploring the amusement park
-        </Typography>
-        {formError && <Alert severity="error">{formError}</Alert>}
-      </Box>
-      <form onSubmit={handleSubmit}>
-        <TextField
-          fullWidth
-          label="Full Name"
-          variant="outlined"
-          margin="normal"
-          value={fullname}
-          onChange={(e) => setFullname(e.target.value)}
-          error={!!fullnameError}
-          helperText={fullnameError}
-          // sx={{ mt : 2 }}
-          
-        />
-        <TextField
-          fullWidth
-          label="Username"
-          variant="outlined"
-          margin="normal"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          error={!!usernameError}
-          helperText={usernameError}
-          // sx={{ mb: 2 }}
-        />
-        <TextField
-          fullWidth
-          label="Password"
-          type="password"
-          variant="outlined"
-          margin="normal"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          error={!!passwordError}
-          helperText={passwordError}
-          // sx={{ mb: 2 }}
-        />
-        <TextField
-          fullWidth
-          label="Confirm Password"
-          type="password"
-          variant="outlined"
-          margin="normal"
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-          error={!!confirmPasswordError}
-          helperText={confirmPasswordError}
-          // sx={{ mb: 2 }}
-        />
-        <TextField
-          fullWidth
-          label="Email Address"
-          type="email"
-          variant="outlined"
-          placeholder="example@gmail.com"
-          margin="normal"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          error={!!emailError}
-          helperText={emailError}
-          // sx={{ mb: 2 }}
-        />
-        <TextField
-          fullWidth
-          label="Phone Number"
-          variant="outlined"
-          margin="normal"
-          value={phone}
-          onChange={(e) => setPhone(e.target.value)}
-          error={!!phoneError}
-          helperText={phoneError}
-          // sx={{ mb: 2 }}
-        />
-        <Box sx={{ mt: 2 }}>
-          <Button type="submit" variant="contained" color="primary" fullWidth sx={{ mb: 2 }}>
-            Sign Up
-          </Button>
-          <Typography variant="body2" sx={{ textAlign: 'center', mb: 4 }}>
-            <h3>
-            Already have an account? <NavLink to="/LoginPage" style={{ textDecoration: 'none', color: '#1976d2' }}>Log in</NavLink></h3>
-          </Typography>
-          {/* <Button type="button" variant="contained" color="secondary" fullWidth onClick={handleReset}>
-            Reset
-          </Button> */}
-        </Box>
-      </form>
-    </Container>
+      <Navbar />
+      <div className="container mt-5 mb-5">
+        <div className="row justify-content-center">
+          <div className="col-lg-6 col-md-8 col-sm-12">
+            <div className="card shadow-lg p-4">
+              <h4 className="card-title mb-3">Create an Account</h4>
+              <p className="card-text">Create an account and start exploring the amusement park</p>
+              {formError && <div className="alert alert-danger">{formError}</div>}
+              <form onSubmit={handleSubmit}>
+                <div className="mb-3">
+                  <label htmlFor="fullname" className="form-label">Full Name</label>
+                  <input
+                    type="text"
+                    className={`form-control ${fullnameError ? 'is-invalid' : ''}`}
+                    id="fullname"
+                    value={fullname}
+                    onChange={(e) => setFullname(e.target.value)}
+                  />
+                  {fullnameError && <div className="invalid-feedback">{fullnameError}</div>}
+                </div>
+                <div className="mb-3">
+                  <label htmlFor="username" className="form-label">Username</label>
+                  <input
+                    type="text"
+                    className={`form-control ${usernameError ? 'is-invalid' : ''}`}
+                    id="username"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                  />
+                  {usernameError && <div className="invalid-feedback">{usernameError}</div>}
+                </div>
+                <div className="mb-3">
+                  <label htmlFor="password" className="form-label">Password</label>
+                  <input
+                    type="password"
+                    className={`form-control ${passwordError ? 'is-invalid' : ''}`}
+                    id="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                  {passwordError && <div className="invalid-feedback">{passwordError}</div>}
+                </div>
+                <div className="mb-3">
+                  <label htmlFor="confirmPassword" className="form-label">Confirm Password</label>
+                  <input
+                    type="password"
+                    className={`form-control ${confirmPasswordError ? 'is-invalid' : ''}`}
+                    id="confirmPassword"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                  />
+                  {confirmPasswordError && <div className="invalid-feedback">{confirmPasswordError}</div>}
+                </div>
+                <div className="mb-3">
+                  <label htmlFor="email" className="form-label">Email Address</label>
+                  <input
+                    type="email"
+                    className={`form-control ${emailError ? 'is-invalid' : ''}`}
+                    id="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="example@gmail.com"
+                  />
+                  {emailError && <div className="invalid-feedback">{emailError}</div>}
+                </div>
+                <div className="mb-3">
+                  <label htmlFor="phone" className="form-label">Phone Number</label>
+                  <input
+                    type="text"
+                    className={`form-control ${phoneError ? 'is-invalid' : ''}`}
+                    id="phone"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                  />
+                  {phoneError && <div className="invalid-feedback">{phoneError}</div>}
+                </div>
+                <button type="submit" className="btn btn-primary w-100 mb-3">Sign Up</button>
+                <p className="text-center">
+                  Already have an account? <NavLink to="/LoginPage" className="text-decoration-none text-primary">Log in</NavLink>
+                </p>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
     </>
   );
 }

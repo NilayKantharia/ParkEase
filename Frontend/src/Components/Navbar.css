@@ -1,72 +1,95 @@
 .navbar {
-    display: flex;
-    justify-content:space-between;
-    align-items: center;
-    padding: .5rem 2rem;
-    background-color: #363da5;
-    color: #fff;
-    position: sticky;
-    width: 95.57%; /* old value = 95.57%*/
-    top: 0;
-    z-index: 1000;
-  }
-  
-  .navbar-logo {
-    font-size: 1.5rem;
-    font-weight: bold;
-    display: flex;
-    justify-content: left;
-    height: auto;
-    
-  }
-.navbar-logo img {
-  width: 200px; 
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: .5rem 2rem !important;
+  background-color: #363da5 !important;
+  color: #fff;
+  position: sticky;
+  width: 100%;
+  /* old value = 95.57%*/
+  top: 0;
+  z-index: 1000;
+}
+
+.navbar-logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  display: flex;
+  justify-content: left;
   height: auto;
-  object-fit:contain;
 
 }
 
-  
-  .navbar-links {
-    list-style: none;
-    display: flex;
-    gap: 1rem;
+.navbar-logo img {
+  width: 200px;
+  height: auto;
+  object-fit: contain;
+}
+
+.logo-image {
+  width: 200px;
+}
+
+
+.navbar-links {
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+}
+
+.navbar-links a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  transition: background 0.3s;
+}
+
+.navbar-links a:hover,
+.navbar-links a.active {
+  background: #ffd700;
+  color: #000;
+}
+
+.navbar-links a.active {
+  background: #ffd700;
+}
+
+.link-section {
+  font-weight: 300;
+  display: flex;
+  padding: 0.5rem 1rem;
+
+  font-weight: 400;
+  flex-direction: row;
+  gap: 1rem;
+  cursor: default;
+}
+
+.link-section p {
+  all: unset;
+}
+
+.link-section a:hover {
+  color: #ffd700;
+  cursor: default;
+}
+
+@media (max-width : 1102px){
+  .navbar-links p{
+    font-size: 10px;
   }
-  
-  .navbar-links a {
-    color: #fff;
-    text-decoration: none;
-    font-weight: bold;
-    padding: 0.5rem 1rem;
-    border-radius: 5px;
-    transition: background 0.3s;
-  }
-  
-  .navbar-links a:hover,
-  .navbar-links a.active {
-    background: #ffd700;
-    color: #000;
-  }
-  
-  .navbar-links a.active {
-    background: #ffd700;
-  }
-  
-  .link-section{
-    font-weight: 300;
-    display: flex;
-    font-size: 0.9rem;
-    align-items: center;
-    flex-direction: row;
-    gap: 1rem;
-    margin-left: 2rem;
-    cursor:default;
-  }
-  .link-section a{
-    all: unset;
+}
+
+@media (max-width: 992px) {
+  .navbar-links p{
+    font-size: 20px;
   }
 
-  .link-section a:hover{
-    color: #ffd700;
-    cursor:default;
+  .link-section{
+    flex-direction: column;
+    margin-left: 0 !important;
   }
+}

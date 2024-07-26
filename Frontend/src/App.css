@@ -1,3 +1,7 @@
+body{
+  width: 100vb;
+}
+
 body, html {
   margin: 0;
   padding: 0;
