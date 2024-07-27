@@ -35,10 +35,11 @@ CREATE TABLE ticket (
     booked_for DATE,
     ticket_scanned_at TIMESTAMP,
     no_of_members_scanned INT,
-    FOREIGN KEY (user_id) REFERENCES user(user_id),
+    FOREIGN KEY (user_id) REFERENCES user(user_id), 
     FOREIGN KEY (ticket_type_id) REFERENCES ticket_type(ticket_type_id)
 );
 CREATE INDEX idx_ticket_user_id ON ticket (user_id);
+
 
 
 -- Stall Table
