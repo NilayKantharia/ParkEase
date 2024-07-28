@@ -60,6 +60,7 @@ CREATE TABLE item(
     image VARCHAR(255) NOT NULL,
     description TEXT,
     item_type ENUM('Food', 'Others'),
+    deleted BOOLEAN DEFAULT 0,
     FOREIGN KEY (stall_id) REFERENCES stall(stall_id)
 );
 
