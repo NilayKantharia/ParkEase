@@ -49,9 +49,21 @@ const handleUpdateStall = (req, res) => {
     })
 }
 
+const getStallDetails = (req, res) => {
+    const query = 'SELECT * FROM stall WHERE stall_id = ?;';
+    const stallId = req.params.stallId;
+    connection.query(query, [stallId], (err, result) => {
+        if(err){
+            return res.status(400).json(err);
+        }
+        return res.status(200).json(result);
+    });
+}
+
 module.exports = {
     index,
     handleAddNewStall,
     handleDeleteStall,
-    handleUpdateStall
+    handleUpdateStall,
+    getStallDetails
 };
