@@ -9,6 +9,7 @@ const employeeRouter = require('./routes/employee');
 const itemRouter = require('./routes/item');
 const hrRouter = require('./routes/hr'); 
 const stallExecutiveRouter = require('./routes/stallExecutive');
+const analyticRouter = require('./routes/analytic');
 const cookieParser = require('cookie-parser');
 
 const app = express();
@@ -33,6 +34,7 @@ app.use('/employees', employeeRouter);
 app.use('/items', itemRouter);
 app.use('/hrs', hrRouter);
 app.use('/stallexecutives', stallExecutiveRouter);
+app.use('/analytics', analyticRouter);
 app.use('/', userRouter); 
 
 //Starting the server
