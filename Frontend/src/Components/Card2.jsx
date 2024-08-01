@@ -10,13 +10,13 @@ const Card2 = ({ image, title, text}) => {
       <div className="col-10 mx-auto">
         <div className="card mb-5 mt-5">
           <div className="row g-0">
-            <div className="col-md-8">
+            <div className="col-md-8 order-lg-1 order-sm-2 order-2" >
               <div className="card-body">
                 <h5 className="card-title">{title}</h5>
                 <p className="card-text">{text}</p>
               </div>
             </div>
-            <div className="col-md-4">
+            <div className="col-md-4 order-lg-2 order-sm-1 order-1">
               <img src={image} className="img-fluid rounded-end explore-image" alt="..." />
             </div>
           </div>

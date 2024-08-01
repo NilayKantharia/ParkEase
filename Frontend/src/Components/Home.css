@@ -8,6 +8,7 @@ body {
 
 html {
   scrollbar-width: thin;
+  scrollbar-color: darkgrey grey;
 }
 
 .home-container {

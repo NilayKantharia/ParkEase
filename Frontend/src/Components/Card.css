@@ -12,3 +12,14 @@ font-size: larger;
     width: 100%;
     object-fit: cover;
 }
+
+
+@media (min-width: 575.98px) {
+    .card-body {
+      order: 2;
+    }
+    .explore-image {
+      order: 1;
+    }
+  }
+  
