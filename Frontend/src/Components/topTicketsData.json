@@ -1,0 +1,14 @@
+[
+    {
+        "ticketType": "Silver",
+        "ticketCount": 60
+    },
+    {
+        "ticketType": "Gold",
+        "ticketCount": 60
+    },
+    {
+        "ticketType": "Platinum",
+        "ticketCount": 60
+    }
+]

@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 import "./BookOrder.css";
-import Navbar from "./Navbar";
 
 const BookOrder = () => {
   const [selectedStall, setSelectedStall] = useState("");
@@ -55,8 +54,11 @@ const BookOrder = () => {
   };
 
   const handleAddToCart = (item, quantity) => {
-    // Add item to cart with the selected quantity
     setCart((prevCart) => [...prevCart, { ...item, quantity }]);
+  };
+
+  const handleRemoveFromCart = (itemId) => {
+    setCart((prevCart) => prevCart.filter(item => item.item_id !== itemId));
   };
 
   const handleGoToCart = () => {
@@ -65,7 +67,6 @@ const BookOrder = () => {
 
   return (
     <>
-      <Navbar />
       <div className="container mt-4">
         <div className="d-flex justify-content-between align-items-center mb-4">
           <button className="btn btn-primary" onClick={handleMyOrdersClick}>
@@ -130,6 +131,12 @@ const BookOrder = () => {
                       }
                     >
                       Add to Cart
+                    </button>
+                    <button
+                      className="btn btn-danger mt-2"
+                      onClick={() => handleRemoveFromCart(item.item_id)}
+                    >
+                      Remove from Cart
                     </button>
                   </div>
                 </div>

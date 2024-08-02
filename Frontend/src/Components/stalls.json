@@ -1,0 +1,27 @@
+[
+    {
+      "stall_name": "Stall A",
+      "sales": 500
+    },
+    {
+      "stall_name": "Stall B",
+      "sales": 400
+    },
+    {
+      "stall_name": "Stall C",
+      "sales": 300
+    },
+    {
+      "stall_name": "Stall D",
+      "sales": 200
+    },
+    {
+      "stall_name": "Stall E",
+      "sales": 100
+    },
+    {
+      "stall_name": "Stall F",
+      "sales": 50
+    }
+  ]
+  

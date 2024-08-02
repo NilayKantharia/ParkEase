@@ -3,13 +3,15 @@ import axios from 'axios';
 import { NavLink, useNavigate, useLocation } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap';
-import Navbar from './Navbar';
+// import Navbar from './Navbar';
 
 export default function Registration() {
   const [fullname, setFullname] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [role, setRole] = useState('user'); // Default role
+
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
 
@@ -108,10 +110,12 @@ export default function Registration() {
     }
 
     const userData = {
-      username: username,
-      password: password,
-      email: email,
+      fullname,
+      username,
+      password,
+      email,
       phoneNO: phone,
+      role, // Include role in user data
     };
 
     try {
@@ -127,7 +131,7 @@ export default function Registration() {
 
   return (
     <>
-      <Navbar />
+      {/* <Navbar /> */}
       <div className="container mt-5 mb-5">
         <div className="row justify-content-center">
           <div className="col-lg-6 col-md-8 col-sm-12">
@@ -202,6 +206,20 @@ export default function Registration() {
                     onChange={(e) => setPhone(e.target.value)}
                   />
                   {phoneError && <div className="invalid-feedback">{phoneError}</div>}
+                </div>
+                <div className="mb-3">
+                  <label htmlFor="role" className="form-label">Role</label>
+                  <select
+                    className="form-control"
+                    id="role"
+                    value={role}
+                    onChange={(e) => setRole(e.target.value)}
+                  >
+                    <option value="user">User</option>
+                    <option value="admin">Admin</option>
+                    <option value="hr">HR</option>
+                    <option value="stallExecutive">Stall Executive</option>
+                  </select>
                 </div>
                 <button type="submit" className="btn btn-primary w-100 mb-3">Sign Up</button>
                 <p className="text-center">

@@ -6,7 +6,8 @@ import { useLocation } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap";
 
-function Navbar() {
+function Navbar({ isLoggedIn, onLogout }) {
+
   const location = useLocation();
 
   const scrollToExplore = (event) => {
@@ -58,8 +59,8 @@ function Navbar() {
           aria-expanded="false"
           aria-label="Toggle navigation"
           style={{
-            backgroundColor: '#ffd700',
-            border: 'none',
+            backgroundColor: "#ffd700",
+            border: "none",
           }}
         >
           <i className="fas fa-bars"></i>
@@ -67,13 +68,19 @@ function Navbar() {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto ms-3 mb-3 mb-lg-0 link-section mb-lg-0 mb-2 flex-lg-row flex-md-col flex- flex-sm-column">
             <li className="nav-item">
-              <p className="nav-link" onClick={scrollToExplore}>explore</p>
+              <p className="nav-link" onClick={scrollToExplore}>
+                explore
+              </p>
             </li>
             <li className="nav-item">
-              <p className="nav-link" onClick={scrollToEvent}>events</p>
+              <p className="nav-link" onClick={scrollToEvent}>
+                events
+              </p>
             </li>
             <li className="nav-item">
-              <p className="nav-links" onClick={scrollToEnquiry} >enquiry</p>
+              <p className="nav-links" onClick={scrollToEnquiry}>
+                enquiry
+              </p>
             </li>
           </ul>
           <ul className="navbar-links navbar-nav ms-auto mb-2 mb-lg-0">
@@ -83,9 +90,11 @@ function Navbar() {
               </NavLink>
             </li>
             <li>
-              <NavLink to="/LoginPage" activeClassName="active">
-                <b>Login</b>
-              </NavLink>
+              {isLoggedIn ? (
+                <button onClick={onLogout} className="common-button">Logout</button>
+              ) : (
+                <NavLink to="/LoginPage">Login</NavLink>
+              )}
             </li>
             <li>
               <NavLink to="/BookATicket" activeClassName="active">

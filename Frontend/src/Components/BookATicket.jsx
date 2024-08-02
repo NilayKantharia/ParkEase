@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import "./BookATicket.css";
-import Navbar from "./Navbar";
 import axios from "axios";
 
 function BookATicket() {
@@ -29,7 +28,8 @@ function BookATicket() {
   }, []);
 
   const totalMembers = adults + kids;
-  const totalPrice = ticketData.find(ticket => ticket.ticket_type_name === ticketType)?.ticket_type_price * totalMembers || 0;
+  const selectedTicket = ticketData.find(ticket => ticket.ticket_type_name === ticketType);
+  const totalPrice = selectedTicket ? selectedTicket.ticket_type_price * totalMembers : 0;
 
   const handleTicketTypeChange = (event) => {
     setTicketType(event.target.value);
@@ -44,7 +44,11 @@ function BookATicket() {
   };
 
   const handleProceedToPay = () => {
-    alert(`Proceeding to pay ${totalPrice} for ${totalMembers} members.`);
+    if (ticketType && adults >= 0 && kids >= 0) {
+      alert(`Proceeding to pay ₹${totalPrice} for ${totalMembers} members.`);
+    } else {
+      alert('Please select a ticket type and enter valid quantities.');
+    }
   };
 
   const toggleDetails = (type) => {
@@ -56,7 +60,6 @@ function BookATicket() {
 
   return (
     <>
-      <Navbar />
       <div className="main-container container col-lg-8 col-md-12 col-sm-12 p-4">
         <div className="sub-container">
           <h2 id="heading">Book Ticket</h2>
@@ -69,7 +72,7 @@ function BookATicket() {
                 } col-lg-3 mb-sm-3 mb-md-3 mx-auto rounded-3 p-3`}
               >
                 <h3>{ticket.ticket_type_name}</h3>
-                <p>Price: &#x20B9;{ticket.ticket_type_price}</p>
+                <p>Price: ₹{ticket.ticket_type_price}</p>
                 <p>
                   {ticket.ticket_type_short_description}
                   <button className="show-more col-3" onClick={() => toggleDetails(ticket.ticket_type_name)}>
@@ -126,8 +129,8 @@ function BookATicket() {
             <legend>Summary</legend>
             <div className="summary mb-3">
               <p>Total Members: {totalMembers}</p>
-              <p>Price per Person: &#x20B9;{ticketData.find(ticket => ticket.ticket_type_name === ticketType)?.ticket_type_price || 0}</p>
-              <p>Total Price: &#x20B9;{totalPrice}</p>
+              <p>Price per Person: ₹{selectedTicket?.ticket_type_price || 0}</p>
+              <p>Total Price: ₹{totalPrice}</p>
             </div>
           </div>
           <button className="ms-auto d-block" onClick={handleProceedToPay}>Proceed to Pay</button>

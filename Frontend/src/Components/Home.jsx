@@ -1,14 +1,14 @@
 import React from "react";
 import backgroundImage from "../Images/homeImageParkEase.jpg";
 import "./Home.css";
-import Navbar from "./Navbar";
+// import Navbar from "./Navbar";
 import Explore from "./Explore";
 import Event from "./Event";
 import HomeEnquirySection from "./Enquiry";
 const Home = () => {
   return (
     <>
-      <Navbar />
+      {/* <Navbar /> */}
       <div
         className="home-container"
         style={{ backgroundImage: `url(${backgroundImage})` }}

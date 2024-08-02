@@ -40,7 +40,7 @@ const MyOrders = () => {
           {orders.map(order => (
             <tr key={order.id}>
               <td>{order.foodName}</td>
-              <td>${order.price.toFixed(2)}</td>
+              <td>₹{order.price.toFixed(2)}</td>
               <td>{order.date}</td>
               <td>{order.time}</td>
               <td>{order.status}</td>

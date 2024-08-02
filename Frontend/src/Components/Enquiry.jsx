@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import './Enquiry.css';
 import axios from "axios";
-import "bootstrap/dist/css/bootstrap.css"
+import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap";
 
 const HomeEnquirySection = () => {
@@ -10,29 +10,32 @@ const HomeEnquirySection = () => {
   const [message, setMessage] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
     const EnquiryQuestion = async () => {
       try {
-        const response = await axios.post("https://", { name, email, message });
+        const response = await axios.post("https://your-api-endpoint.com", { name, email, message });
         if (response.data.success) {
-          setIsSubmitted("Querry submitted Successfully");
+          setIsSubmitted("Query submitted successfully");
         } else {
-          setIsSubmitted("Something Went Wrong");
+          setIsSubmitted("Something went wrong");
         }
       } catch (err) {
-        console.error("Message not submitted");
+        console.error("Message not submitted", err);
+        setIsSubmitted("An error occurred");
       }
     };
 
-    setIsSubmitted(true);
+    // Call the EnquiryQuestion function
+    await EnquiryQuestion();
   };
 
   return (
     <section className="home-enquiry mx-auto col-lg-6 col-sm-12 col-md-8">
       <h2>Contact Us</h2>
       {isSubmitted ? (
-        <p>Thank you for your enquiry! We will get back to you soon.</p>
+        <p>{isSubmitted}</p>
       ) : (
         <form onSubmit={handleSubmit} className=''>
           <label className='form-label' htmlFor="name">Name:</label>
