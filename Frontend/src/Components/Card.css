@@ -1,9 +1,10 @@
 .card-text{
     font-size: larger;
+    color: rgb(81, 76, 76);
 }
 
 .card-title{
-font-size: larger;
+font-size: xxx-large;
 }
 
 
@@ -11,4 +12,22 @@ font-size: larger;
     height: 100%;
     width: 100%;
     object-fit: cover;
+    box-shadow: -10px 8px 22px rgba(0, 0, 0, 35.3);
 }
+
+
+@media (min-width: 575.98px) {
+    .card-body {
+      order: 2;
+    }
+    .explore-image {
+      order: 1;
+    }
+  }
+  
+
+.explore{
+    background-color: rgb(255, 234, 0) !important;
+    color: black;
+}
+

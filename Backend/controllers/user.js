@@ -13,9 +13,16 @@ const handleUserSignup = (req, res) => {
 
     connection.query(insertQuery,values,(err, result) => {
         if (err) {
-            return res.status(500).json({ error: 'Failed to insert data into user table' });
+            return res.status(500).json({ error: 'Failed to insert data into user table' , err});
         }
-        res.json({success: true, message: 'Login successful'});
+        user = {
+            user_id : result.insertId,
+            mail_id : email,
+            role : "customer"
+        }
+        token = setUser(user);
+        res.cookie('uid', token);
+        res.status(200).json({success: true, message: 'Login successful', user});
         
     });
 }
@@ -39,7 +46,7 @@ const handleUserLogin = (req, res) => {
             user = results[0]
             token = setUser(user);
             res.cookie('uid', token);
-            res.status(200).json({success: true, message: 'Login successful'});
+            res.status(200).json({success: true, message: 'Login successful', user});
 
         } else {
     

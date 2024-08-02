@@ -32,7 +32,7 @@ const HomeEnquirySection = () => {
   };
 
   return (
-    <section className="home-enquiry mx-auto col-lg-6 col-sm-12 col-md-8">
+    <section className="home-enquiry mx-auto col-lg-6 col-sm-12 col-md-8 my-5 border text-secondary">
       <h2>Contact Us</h2>
       {isSubmitted ? (
         <p>{isSubmitted}</p>
