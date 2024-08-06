@@ -30,8 +30,30 @@ const getTopTickets = (req, res) => {
     })
 }
 
+const getEmployeeCount = (req, res) => {
+    const query = "SELECT COUNT(*) AS employee_count FROM employee;";
+    connection.query(query, (err, result) => {
+        if(err){
+            return res.status(400).json(err);
+        }
+        return res.status(200).json(result);
+    })
+}
+
+const getCurrentCustomers = (req, res) => {
+    const query = "SELECT SUM(no_of_members) AS current_customers FROM ticket WHERE booked_for = CURDATE();"
+    connection.query(query, (err, result) => {
+        if(err){
+            return res.status(400).json(err);
+        }
+        return res.status(200).json(result);
+    })
+}
+
 module.exports = {
     getTopStalls,
     getLastMonthCustomers,
-    getTopTickets
+    getTopTickets,
+    getEmployeeCount,
+    getCurrentCustomers
 }

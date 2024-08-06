@@ -71,7 +71,7 @@ export default function TopTickets({ className, style }) {
   useEffect(() => {
     const fetchDataset = async () => {
       try {
-        const response = await axios.get("https://your-api-endpoint.com/tickets"); // Replace with your API endpoint
+        const response = await axios.get("http://localhost:8000/analytics/top-tickets"); // Replace with your API endpoint
         setNoOfTickets(response.data);
       } catch (err) {
         setError("Failed to fetch data");

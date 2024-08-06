@@ -1,23 +1,36 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import employees from './employeesData'; // Static data
+import axios from 'axios';
 
 const EmployeeDetails = () => {
   const navigate = useNavigate();
-  const [employeeList, setEmployeeList] = useState(employees); // Static data initially
+  const [employeeList, setEmployeeList] = useState([]);
+
+  useEffect(() => {
+    // Fetching employee data from the backend API
+    axios.get('http://localhost:8000/employees/') // Replace with your API endpoint
+      .then((response) => {
+        setEmployeeList(response.data);
+      })
+      .catch((error) => {
+        console.error('Error fetching employee data:', error);
+      });
+  }, []);
 
   const handleDeleteEmployee = (empId) => {
     const confirmDelete = window.confirm('Are you sure you want to delete?');
     if (confirmDelete) {
-      setEmployeeList(employeeList.filter((employee) => employee.id !== empId));
-      // Uncomment when integrating Axios
-      // axios.delete(`YOUR_API_ENDPOINT/employees/${empId}`)
-      //   .then(() => {
-      //     console.log('Employee deleted successfully');
-      //   })
-      //   .catch((error) => {
-      //     console.error('Error deleting employee:', error);
-      //   });
+      // Optimistically update the state
+      setEmployeeList(employeeList.filter((employee) => employee.emp_id !== empId));
+      
+      // Delete request to the backend
+      axios.delete(`http://localhost:8000/employees/${empId}`) // Replace with your API endpoint
+        .then(() => {
+          console.log('Employee deleted successfully');
+        })
+        .catch((error) => {
+          console.error('Error deleting employee:', error);
+        });
     }
   };
 
@@ -41,7 +54,7 @@ const EmployeeDetails = () => {
         </thead>
         <tbody>
           {employeeList.map((employee) => (
-            <tr key={employee.id}>
+            <tr key={employee.emp_id}>
               <td>{employee.emp_name}</td>
               <td>{employee.emp_mail}</td>
               <td>{employee.phone_no}</td>
@@ -50,7 +63,7 @@ const EmployeeDetails = () => {
               <td>
                 <button
                   className="btn btn-warning"
-                  onClick={() => navigate(`/view-employee/${employee.id}`)}
+                  onClick={() => navigate(`/view-employee/${employee.emp_id}`)} // Correct property name
                 >
                   Edit
                 </button>
@@ -58,7 +71,7 @@ const EmployeeDetails = () => {
               <td>
                 <button
                   className="btn btn-danger"
-                  onClick={() => handleDeleteEmployee(employee.id)}
+                  onClick={() => handleDeleteEmployee(employee.emp_id)} // Correct property name
                 >
                   Delete
                 </button>

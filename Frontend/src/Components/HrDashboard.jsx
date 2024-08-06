@@ -10,10 +10,9 @@ import {
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
 import "bootstrap/dist/css/bootstrap.min.css";
-import stallsData from "./stalls.json";
-import customersData from "./customers.json";
 import TopTickets from "./TopTickets";
 import EmployeeDetails from "./EmployeeDetails";
+// import axios from 'axios'; // Uncomment if using axios
 
 ChartJS.register(
   BarElement,
@@ -27,6 +26,8 @@ ChartJS.register(
 export default function HrDashboard() {
   const [stalls, setStalls] = useState([]);
   const [noOfCustomers, setNoOfCustomers] = useState([]);
+  const [currentCustomers, setCurrentCustomers] = useState(0);
+  const [noOfEmployees, setNoOfEmployees] = useState(0);
 
   const scrollToEmployeeDetails = () => {
     const employeeSection = document.getElementById("employee-details-section");
@@ -36,8 +37,29 @@ export default function HrDashboard() {
   };
 
   useEffect(() => {
-    setStalls(stallsData); // Using static data
-    setNoOfCustomers(customersData); // Using static data
+    // Fetching top 5 stalls data
+    fetch("http://localhost:8000/analytics/top-5-stalls")
+      .then((response) => response.json())
+      .then((data) => setStalls(data))
+      .catch((error) => console.error("Error fetching stalls data:", error));
+
+    // Fetching customer data for the last 5 months
+    fetch("http://localhost:8000/analytics/last-5-months")
+      .then((response) => response.json())
+      .then((data) => setNoOfCustomers(data))
+      .catch((error) => console.error("Error fetching customers data:", error));
+
+    // Fetching the number of customers currently in the park
+    fetch("http://localhost:8000/analytics/current-customers")
+      .then((response) => response.json())
+      .then((data) => setCurrentCustomers(data[0].current_customers))
+      .catch((error) => console.error("Error fetching current customers data:", error));
+
+    // Fetching the number of employees
+    fetch("http://localhost:8000/analytics/employee-count")
+      .then((response) => response.json())
+      .then((data) => setNoOfEmployees(data[0].employee_count))
+      .catch((error) => console.error("Error fetching employee count data:", error));
   }, []);
 
   const sortedStalls = stalls.sort((a, b) => b.revenue - a.revenue).slice(0, 5);
@@ -80,7 +102,7 @@ export default function HrDashboard() {
   };
 
   const customerLabels = noOfCustomers.map((customer) => customer.month);
-  const customerData = noOfCustomers.map((customer) => customer.value);
+  const customerData = noOfCustomers.map((customer) => customer.no_of_customers);
   const backgroundColor2 = [
     "#9966FF",
     "#FFCE56",
@@ -176,7 +198,7 @@ export default function HrDashboard() {
                   style={{ height: "9rem" }}
                 >
                   <div className="card-body">
-                    No Of Employees <h1>100+</h1>
+                    No Of Employees <h1>{noOfEmployees}</h1>
                   </div>
                 </div>
                 <div
@@ -184,7 +206,7 @@ export default function HrDashboard() {
                   style={{ height: "9rem" }}
                 >
                   <div className="card-body">
-                    No of Customers present in park <h1>200+</h1>
+                    No of Customers present in park <h1>{currentCustomers}</h1>
                   </div>
                 </div>
               </div>
@@ -192,7 +214,7 @@ export default function HrDashboard() {
           </div>
         </div>
       </div>
-      <div id="employee-details-section">
+      <div id="employee-details-section" className="row m-5">
         <EmployeeDetails />
       </div>
     </>
