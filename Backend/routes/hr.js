@@ -8,9 +8,9 @@ const allowedRoles = ['admin'];
 
 
 //add the HR
-router.get('/', restrictedToLoggedInUsersOnly,authenticate, authorize(allowedRoles),showAllHr);
-router.post('/new',restrictedToLoggedInUsersOnly, authenticate, authorize(allowedRoles),handleAddNewHr);
-router.put('/:hrId',authenticate, authorize(allowedRoles),handleUpdateHr);
-router.delete('/:hrId',authenticate, authorize(allowedRoles),handleDeleteHr);
+router.get('/',showAllHr);
+router.post('/new',handleAddNewHr);
+router.put('/:hrId',handleUpdateHr);
+router.delete('/:hrId',handleDeleteHr);
 
 module.exports = router;

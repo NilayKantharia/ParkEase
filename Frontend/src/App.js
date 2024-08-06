@@ -14,6 +14,10 @@ import EmployeeDetails from './Components/EmployeeDetails';
 import AddNewEmployee from './Components/AddNewEmployee';
 import ViewEmployee from './Components/ViewEmployee';
 import TicketHistory from './Components/TicketHistory'; // Import the TicketHistory component
+import AdminDashboard from './Components/AdminDashBoard';
+import HrInfo from './Components/HrInfo';
+import EditHrInfo from './Components/EditHrInfo';
+import AddNewHr from './Components/AddNewHr';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -63,6 +67,12 @@ function App() {
             isLoggedIn && role === 'hr' ? <HrDashboard /> : <Navigate to="/" />
           }
         />
+        <Route
+          path="/AdminDashboard"
+          element={
+            isLoggedIn && role === 'admin' ? <AdminDashboard /> : <Navigate to="/AdminDashboard" />
+          }
+        />
         
         {/* Other Routes */}
         <Route path="/my-orders" element={<MyOrders />} />
@@ -70,7 +80,11 @@ function App() {
         <Route path="/employee-details" element={<EmployeeDetails />} />
         <Route path="/add-new-employee" element={<AddNewEmployee />} />
         <Route path="/view-employee/:id" element={<ViewEmployee />} />
-        <Route path="/ticket-history" element={<TicketHistory />} /> {/* Add this route */}
+        <Route path="/ticket-history" element={<TicketHistory />} />
+        <Route path="/ticket-history" element={<TicketHistory />} />
+        <Route path="/hr-info" element={<HrInfo />} />
+        <Route path="/add-new-hr" element={<AddNewHr />} />
+        <Route path="/edit-hr" element={<EditHrInfo />} />
 
         {/* Redirect all other routes to Home */}
         {/* <Route path="*" element={<Navigate to="/" />} /> */}

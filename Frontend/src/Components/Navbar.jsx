@@ -11,10 +11,25 @@ function Navbar() {
   const location = useLocation();
 
   useEffect(() => {
-    const uid = Cookies.get("uid");
-    if (uid) {
-      setIsLoggedIn(true);
-    }
+    // Function to check login status
+    const checkLoginStatus = () => {
+      const uid = Cookies.get("uid");
+      setIsLoggedIn(!!uid); // Convert to boolean
+    };
+
+    // Check login status on component mount
+    checkLoginStatus();
+
+    // Add event listener to listen to cookie changes
+    const handleCookieChange = () => {
+      checkLoginStatus();
+    };
+
+    // Assuming you have a mechanism to listen to cookie changes
+    // For simplicity, we'll use a timer to poll for changes
+    const intervalId = setInterval(handleCookieChange, 1000);
+
+    return () => clearInterval(intervalId); // Cleanup interval on component unmount
   }, []);
 
   const scrollToExplore = (event) => {
@@ -105,7 +120,9 @@ function Navbar() {
             </li>
             <li>
               {isLoggedIn ? (
-                <NavLink to="/" onClick={logOut} activeClassName="active" >Log Out</NavLink>
+                <NavLink to="/" onClick={logOut} activeClassName="active">
+                  Log Out
+                </NavLink>
               ) : (
                 <NavLink to="/LoginPage">Login</NavLink>
               )}

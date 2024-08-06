@@ -1,11 +1,13 @@
+// AddNewHr.jsx
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const AddNewHr = ({ onAdd }) => {
+const AddNewHr = ({ fetchHrList }) => {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
+    user_name: '',
+    password: '',
+    mail_id: '',
+    phone_no: '',
   });
 
   const handleChange = (e) => {
@@ -18,8 +20,9 @@ const AddNewHr = ({ onAdd }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:8000/hr', formData);
-      onAdd();
+      await axios.post('http://localhost:8000/hrs/new', formData);
+      fetchHrList(); // Refresh the list after adding a new HR
+      setFormData({ user_name: '', password: '', mail_id: '', phone_no: '' }); // Clear form fields
     } catch (error) {
       console.error('Error adding new HR:', error);
     }
@@ -31,27 +34,40 @@ const AddNewHr = ({ onAdd }) => {
         <label>Name:</label>
         <input
           type="text"
-          name="name"
-          value={formData.name}
+          name="user_name"
+          value={formData.user_name}
           onChange={handleChange}
+          required
+        />
+      </div>
+      <div>
+        <label>Password:</label>
+        <input
+          type="password"
+          name="password"
+          value={formData.password}
+          onChange={handleChange}
+          required
         />
       </div>
       <div>
         <label>Email:</label>
         <input
           type="email"
-          name="email"
-          value={formData.email}
+          name="mail_id"
+          value={formData.mail_id}
           onChange={handleChange}
+          required
         />
       </div>
       <div>
         <label>Phone:</label>
         <input
           type="text"
-          name="phone"
-          value={formData.phone}
+          name="phone_no"
+          value={formData.phone_no}
           onChange={handleChange}
+          required
         />
       </div>
       <button type="submit">Add HR</button>

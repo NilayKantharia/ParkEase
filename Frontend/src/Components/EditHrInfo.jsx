@@ -1,11 +1,11 @@
+// EditHrInfo.jsx
 import React, { useState } from 'react';
-import axios from 'axios';
 
 const EditHrInfo = ({ hr, onUpdate }) => {
   const [formData, setFormData] = useState({
-    name: hr.name,
-    email: hr.email,
-    phone: hr.phone,
+    user_name: hr.user_name,
+    mail_id: hr.mail_id,
+    phone_no: hr.phone_no,
   });
 
   const handleChange = (e) => {
@@ -15,46 +15,49 @@ const EditHrInfo = ({ hr, onUpdate }) => {
     });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    try {
-      await axios.put(`http://localhost:8000/hr/${hr.id}`, formData);
-      onUpdate();
-    } catch (error) {
-      console.error('Error updating HR info:', error);
-    }
+    onUpdate({ ...hr, ...formData });
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label>Name:</label>
+    <form onSubmit={handleSubmit} className="d-flex align-items-center">
+      <div className="form-group mx-2">
+        <label className="sr-only">Name:</label>
         <input
           type="text"
-          name="name"
-          value={formData.name}
+          name="user_name"
+          value={formData.user_name}
           onChange={handleChange}
+          className="form-control"
+          placeholder="Name"
         />
       </div>
-      <div>
-        <label>Email:</label>
+      <div className="form-group mx-2">
+        <label className="sr-only">Email:</label>
         <input
           type="email"
-          name="email"
-          value={formData.email}
+          name="mail_id"
+          value={formData.mail_id}
           onChange={handleChange}
+          className="form-control"
+          placeholder="Email"
         />
       </div>
-      <div>
-        <label>Phone:</label>
+      <div className="form-group mx-2">
+        <label className="sr-only">Phone:</label>
         <input
           type="text"
-          name="phone"
-          value={formData.phone}
+          name="phone_no"
+          value={formData.phone_no}
           onChange={handleChange}
+          className="form-control"
+          placeholder="Phone"
         />
       </div>
-      <button type="submit">Save Changes</button>
+      <button type="submit" className="btn btn-success mx-2">
+        Save Changes
+      </button>
     </form>
   );
 };

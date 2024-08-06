@@ -8,7 +8,7 @@ const DeleteHr = ({ hrId, onDelete }) => {
     if (confirmDelete) {
       try {
         await axios.delete(`http://localhost:8000/hr/${hrId}`);
-        onDelete();
+        onDelete(); // Callback to update the HR list
       } catch (error) {
         console.error('Error deleting HR:', error);
       }
@@ -16,7 +16,7 @@ const DeleteHr = ({ hrId, onDelete }) => {
   };
 
   return (
-    <button onClick={handleDelete} className="btn btn-danger">
+    <button onClick={handleDelete} className="btn btn-danger mx-2">
       Delete HR
     </button>
   );
