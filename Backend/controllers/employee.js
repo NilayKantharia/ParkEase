@@ -16,15 +16,16 @@ const handleAddNewEmployee = (req, res) => {
 //Edit Employee Information Controller
 const handleEditEmployeeDetails = (req, res) => {
     const empId = req.params.empId;
-    const {empName, empMail, phoneNo, salary, workAllotted} = req.body;
+    const { empName, empMail, phoneNo, salary, workAllotted } = req.body;
     const query = 'UPDATE employee SET emp_name = ?, emp_mail = ?, phone_no = ?, salary = ?, work_allotted = ? WHERE emp_id = ?;';
     connection.query(query, [empName, empMail, phoneNo, salary, workAllotted, empId], (err, result) => {
-        if(err) {
-            return res.status(400).json(err);
+        if (err) {
+            return res.status(400).json({ error: err.message });
         }
-        return res.status(204).json({success: true});
+        return res.status(204).json({ success: true });
     });
 }
+
 
 //View Employee Information Cotroller
 const handleGetEmployeeDetails = (req, res) => {
@@ -34,7 +35,7 @@ const handleGetEmployeeDetails = (req, res) => {
         if(err) {
             return res.status(400).json(err);
         }
-        return res.status(200).json(result);
+        return res.status(200).json(result[0]);
     });
 }
 

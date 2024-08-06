@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import employees from './employeesData'; // Static data
+import axios from 'axios';
 
 const ViewEmployee = () => {
   const { id } = useParams();
@@ -9,15 +9,14 @@ const ViewEmployee = () => {
 
   useEffect(() => {
     const fetchEmployee = async () => {
-      // Uncomment when integrating Axios
-      // try {
-      //   const response = await axios.get(`YOUR_API_ENDPOINT/employees/${id}`);
-      //   setEmployee(response.data);
-      // } catch (error) {
-      //   console.error('Error fetching employee:', error);
-      // }
-      const emp = employees.find((e) => e.id === parseInt(id));
-      setEmployee(emp);
+      try {
+        const response = await axios.get(`http://localhost:8000/employees/${id}`);
+        // Handle array response
+        const emp = response.data[0];
+        setEmployee(emp);
+      } catch (error) {
+        console.error('Error fetching employee:', error);
+      }
     };
     fetchEmployee();
   }, [id]);
@@ -28,15 +27,20 @@ const ViewEmployee = () => {
   };
 
   const handleSave = async () => {
-    // Uncomment when integrating Axios
-    // try {
-    //   await axios.put(`YOUR_API_ENDPOINT/employees/${id}`, employee);
-    //   console.log('Employee updated successfully');
-    // } catch (error) {
-    //   console.error('Error updating employee:', error);
-    // }
-    alert('Employee updated successfully');
-    navigate('/');
+    try {
+      await axios.patch(`http://localhost:8000/employees/${id}/edit`, {
+        empName: employee.emp_name,
+        empMail: employee.emp_mail,
+        phoneNo: employee.phone_no,
+        salary: employee.salary,
+        workAllotted: employee.work_allotted
+      });
+      console.log('Employee updated successfully');
+      alert('Employee updated successfully');
+      navigate('/');
+    } catch (error) {
+      console.error('Error updating employee:', error);
+    }
   };
 
   if (!employee) return <div>Loading...</div>;
