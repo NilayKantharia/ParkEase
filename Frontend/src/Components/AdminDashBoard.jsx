@@ -127,6 +127,26 @@ export default function AdminDashboard() {
     }
   };
 
+  const handleViewStallExecutives = () => {
+    navigate("/stall-executives");
+  };
+
+  const handleAddNewStallExecutive = () => {
+    navigate("/add-new-stall-executive");
+  };
+
+  const handleEditStallExecutive = () => {
+    navigate("/edit-stall-executive");
+  };
+
+  const handleDeleteStallExecutive = () => {
+    const confirmed = window.confirm("Are you sure you want to delete?");
+    if (confirmed) {
+      console.log("Stall Executive deleted");
+    }
+  };
+
+
   return (
     <>
       <div className="container">
@@ -206,7 +226,7 @@ export default function AdminDashboard() {
 
           <div className="row g-3 mb-3">
             <div className="col-12">
-              <div className="card" style={{ height: "15rem" }}>
+              <div className="card" style={{ height: "25rem", width:"100%" }}>
                 <TopFiveSellingItems />
               </div>
             </div>
@@ -238,20 +258,6 @@ export default function AdminDashboard() {
                     >
                       Add New HR
                     </button>
-                    {/* <button
-                      type="button"
-                      className="btn btn-warning"
-                      onClick={handleEditHr}
-                    >
-                      Edit HR
-                    </button>
-                    <button
-                      type="button"
-                      className="btn btn-danger"
-                      onClick={handleDeleteHr}
-                    >
-                      Delete HR
-                    </button> */}
                   </div>
                 </div>
               </div>
@@ -263,6 +269,22 @@ export default function AdminDashboard() {
               <h6 className="text-center">Stall Executives</h6>
               <div className="card" style={{ height: "25rem" }}>
                 <div className="card-body">Stall Executive Options</div>
+                <div className="d-grid gap-2">
+                    <button
+                      type="button"
+                      className="btn btn-primary"
+                      onClick={handleViewStallExecutives}
+                    >
+                      View Stalls
+                    </button>
+                    <button
+                      type="button"
+                      className="btn btn-secondary"
+                      onClick={handleAddNewStallExecutive}
+                    >
+                      Add New Stall Executive
+                    </button>
+                  </div>
               </div>
             </div>
             <div className="col-lg-6 col-md-6">

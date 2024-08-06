@@ -39,7 +39,7 @@ const HrInfo = () => {
   return (
     <div className="hr-list container mt-3">
       <h2>HR List</h2>
-      <AddNewHr fetchHrList={fetchHrList} /> {/* Pass fetchHrList as a prop */}
+      {/* <AddNewHr fetchHrList={fetchHrList} /> Pass fetchHrList as a prop */}
       <table className="table table-striped mt-3">
         <thead>
           <tr>

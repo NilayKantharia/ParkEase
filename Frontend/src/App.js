@@ -18,6 +18,12 @@ import AdminDashboard from './Components/AdminDashBoard';
 import HrInfo from './Components/HrInfo';
 import EditHrInfo from './Components/EditHrInfo';
 import AddNewHr from './Components/AddNewHr';
+import StallExecutives from './Components/StallOwnerInfo'; // Ensure path is correct
+import AddNewStallExecutive from './Components/AddNewStallOwner'; // Ensure path is correct
+import EditStallExecutive from './Components/EditStallOwner'; 
+import StallExecutiveDashboard from './Components/StallExecutiveDashboard'; // Adjust path if necessary
+import ShowItems from './Components/ShowItems'; // Adjust path if necessary
+
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -85,6 +91,11 @@ function App() {
         <Route path="/hr-info" element={<HrInfo />} />
         <Route path="/add-new-hr" element={<AddNewHr />} />
         <Route path="/edit-hr" element={<EditHrInfo />} />
+        <Route path="/stall-executives" element={<StallExecutives />} />
+        <Route path="/add-new-stall-executive" element={<AddNewStallExecutive />} />
+        <Route path="/edit-stall-executive" element={<EditStallExecutive />} />
+        <Route path="/stall-executive-dashboard" component={StallExecutiveDashboard} />
+        <Route path="/show-items" component={ShowItems} />
 
         {/* Redirect all other routes to Home */}
         {/* <Route path="*" element={<Navigate to="/" />} /> */}

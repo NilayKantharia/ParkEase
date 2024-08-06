@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Cart.css';
 
 const Cart = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const { cart } = location.state || { cart: [] };
   const [cartItems, setCartItems] = useState(cart);
 
@@ -13,9 +15,35 @@ const Cart = () => {
     setCartItems(updatedCart);
   };
 
-  const handleProceedToPay = () => {
-    // Implement proceed to pay logic here
-    alert('Proceeding to payment');
+  const handleProceedToPay = async () => {
+    if (cartItems.length === 0) {
+      alert('Your cart is empty.');
+      return;
+    }
+
+    const stallId = cartItems[0]?.stallId; // All items are from the same stall
+    if (!stallId) {
+      alert('No stall ID found.');
+      return;
+    }
+
+    const order = {
+      stallId,
+      items: cartItems.map(item => ({
+        item_name: item.item_name,
+        quantity: item.quantity,
+        price: item.price,
+        image: item.image,
+        description: item.description
+      }))
+    };
+
+    try {
+      await axios.post('http://localhost:8000/orders', order);
+      navigate('/order-confirmation'); // Navigate to a confirmation page or similar
+    } catch (error) {
+      console.error('Error proceeding to pay:', error);
+    }
   };
 
   return (
@@ -40,7 +68,6 @@ const Cart = () => {
                 ></div>
                 <div className="card-body">
                   <h6 className="card-title">{item.item_name}</h6>
-                  {/* <p className="card-text">{item.description}</p> */}
                   <p className="card-text">Price: ₹{item.price}</p>
                   <p className="card-text">Quantity: {item.quantity}</p>
                   <p className="card-text">Total: ₹{(item.price * item.quantity).toFixed(2)}</p>

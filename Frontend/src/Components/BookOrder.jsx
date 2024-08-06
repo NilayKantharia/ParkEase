@@ -54,7 +54,7 @@ const BookOrder = () => {
   };
 
   const handleAddToCart = (item, quantity) => {
-    setCart((prevCart) => [...prevCart, { ...item, quantity }]);
+    setCart((prevCart) => [...prevCart, { ...item, quantity, stallId: selectedStall }]);
   };
 
   const handleRemoveFromCart = (itemId) => {
