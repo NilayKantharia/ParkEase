@@ -31,8 +31,8 @@ const Footer = () => {
 
           <div className="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
             <h5 className="text-uppercase mb-4 font-weight-bold">Resources</h5>
-            <p><a href="#more" className="text-dark" style={{ textDecoration: 'none' }}>Free eBooks</a></p>
-            <p><a href="#more" className="text-dark" style={{ textDecoration: 'none' }}>Development Tutorial</a></p>
+            <p><a href="#more" className="text-dark" style={{ textDecoration: 'none' }}>Attractions</a></p>
+            <p><a href="#more" className="text-dark" style={{ textDecoration: 'none' }}>Events</a></p>
             <p><a href="#more" className="text-dark" style={{ textDecoration: 'none' }}>How to - Blog</a></p>
             <p><a href="#more" className="text-dark" style={{ textDecoration: 'none' }}>YouTube Playlist</a></p>
           </div>
