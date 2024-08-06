@@ -5,6 +5,7 @@ import "./Home.css";
 import Explore from "./Explore";
 import Event from "./Event";
 import HomeEnquirySection from "./Enquiry";
+import Footer from "./Footer";
 const Home = () => {
   return (
     <>
@@ -29,6 +30,9 @@ const Home = () => {
       </div>
       <div id="enquiry-section">
         <HomeEnquirySection/>
+      </div>
+      <div>
+        <Footer/>
       </div>
     </>
   );

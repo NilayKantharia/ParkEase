@@ -227,7 +227,7 @@ export default function LoginPage({ onLogin }) {
             navigate('/stallDashboard');
             break;
           default:
-            navigate('/userDashboard');
+            navigate('/');
             break;
         }
       } else {
