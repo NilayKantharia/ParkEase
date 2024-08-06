@@ -7,16 +7,16 @@ import 'bootstrap/dist/js/bootstrap';
 
 export default function Registration() {
   const [fullname, setFullname] = useState('');
-  const [username, setUsername] = useState('');
+  // const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [role, setRole] = useState('user'); // Default role
+  // const [role, setRole] = useState('user'); // Default role
 
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
 
   const [fullnameError, setFullnameError] = useState('');
-  const [usernameError, setUsernameError] = useState('');
+  // const [usernameError, setUsernameError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [confirmPasswordError, setConfirmPasswordError] = useState('');
   const [emailError, setEmailError] = useState('');
@@ -29,7 +29,7 @@ export default function Registration() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     setFullnameError('');
-    setUsernameError('');
+    // setUsernameError('');
     setPasswordError('');
     setConfirmPasswordError('');
     setEmailError('');
@@ -46,27 +46,27 @@ export default function Registration() {
       hasError = true;
     }
 
-    const validateUsername = (username) => {
-      if (username.length < 3 || username.length > 15) {
-        return 'Username must be between 3 and 15 characters long';
-      }
-      if (!/^[a-zA-Z0-9._]+$/.test(username)) {
-        return 'Username can only contain letters, numbers, underscores, and periods';
-      }
-      if (!/^\S*$/.test(username)) {
-        return 'Username cannot contain spaces';
-      }
-      if (/(.)\1{2,}/.test(username)) {
-        return 'Username cannot contain sequential repeated characters';
-      }
-      return '';
-    };
+    // const validateUsername = (username) => {
+    //   if (username.length < 3 || username.length > 15) {
+    //     return 'Username must be between 3 and 15 characters long';
+    //   }
+    //   if (!/^[a-zA-Z0-9._]+$/.test(username)) {
+    //     return 'Username can only contain letters, numbers, underscores, and periods';
+    //   }
+    //   if (!/^\S*$/.test(username)) {
+    //     return 'Username cannot contain spaces';
+    //   }
+    //   if (/(.)\1{2,}/.test(username)) {
+    //     return 'Username cannot contain sequential repeated characters';
+    //   }
+    //   return '';
+    // };
 
-    const usernameValidationError = validateUsername(username);
-    if (usernameValidationError) {
-      setUsernameError(usernameValidationError);
-      hasError = true;
-    }
+    // const usernameValidationError = validateUsername(username);
+    // if (usernameValidationError) {
+    //   setUsernameError(usernameValidationError);
+    //   hasError = true;
+    // }
 
     if (!password) {
       setPasswordError('Please enter a password.');
@@ -111,11 +111,9 @@ export default function Registration() {
 
     const userData = {
       fullname,
-      username,
       password,
       email,
       phoneNO: phone,
-      role, // Include role in user data
     };
 
     try {
@@ -151,7 +149,7 @@ export default function Registration() {
                   />
                   {fullnameError && <div className="invalid-feedback">{fullnameError}</div>}
                 </div>
-                <div className="mb-3">
+                {/* <div className="mb-3">
                   <label htmlFor="username" className="form-label">Username</label>
                   <input
                     type="text"
@@ -161,7 +159,7 @@ export default function Registration() {
                     onChange={(e) => setUsername(e.target.value)}
                   />
                   {usernameError && <div className="invalid-feedback">{usernameError}</div>}
-                </div>
+                </div> */}
                 <div className="mb-3">
                   <label htmlFor="password" className="form-label">Password</label>
                   <input
@@ -207,7 +205,7 @@ export default function Registration() {
                   />
                   {phoneError && <div className="invalid-feedback">{phoneError}</div>}
                 </div>
-                <div className="mb-3">
+                {/* <div className="mb-3">
                   <label htmlFor="role" className="form-label">Role</label>
                   <select
                     className="form-control"
@@ -220,7 +218,7 @@ export default function Registration() {
                     <option value="hr">HR</option>
                     <option value="stallExecutive">Stall Executive</option>
                   </select>
-                </div>
+                </div> */}
                 <button type="submit" className="btn btn-primary w-100 mb-3">Sign Up</button>
                 <p className="text-center">
                   Already have an account? <NavLink to="/LoginPage" className="text-decoration-none text-primary">Log in</NavLink>

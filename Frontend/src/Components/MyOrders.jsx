@@ -9,7 +9,10 @@ const MyOrders = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/api/orders');
+        const response = await axios.get(
+          'http://localhost:8000/orders/history',
+          {withCredentials:true}
+        );
         setOrders(response.data);
       } catch (error) {
         setErrors('Error fetching orders');
@@ -29,8 +32,7 @@ const MyOrders = () => {
           <tr>
             <th>Food Name</th>
             <th>Price</th>
-            <th>Date</th>
-            <th>Time</th>
+            <th>Placed At</th>
             <th>Status</th>
             <th>Quantity</th>
             <th>Stall Name</th>
@@ -38,14 +40,13 @@ const MyOrders = () => {
         </thead>
         <tbody>
           {orders.map(order => (
-            <tr key={order.id}>
-              <td>{order.foodName}</td>
-              <td>₹{order.price.toFixed(2)}</td>
-              <td>{order.date}</td>
-              <td>{order.time}</td>
-              <td>{order.status}</td>
+            <tr key={order.order_id}>
+              <td>{order.item_name}</td>
+              <td>₹{order.price}</td>
+              <td>{order.order_placed_at}</td>
+              <td>{order.order_status}</td>
               <td>{order.quantity}</td>
-              <td>{order.stallName}</td>
+              <td>{order.stall_name}</td>
             </tr>
           ))}
         </tbody>

@@ -7,6 +7,7 @@ function BookATicket() {
   const [ticketType, setTicketType] = useState("");
   const [adults, setAdults] = useState(0);
   const [kids, setKids] = useState(0);
+  const [bookedFor, setBookedFor] = useState("");
   const [showDetails, setShowDetails] = useState({});
 
   useEffect(() => {
@@ -43,9 +44,32 @@ function BookATicket() {
     setKids(Number(event.target.value));
   };
 
+  const handleBookedForChange = (event) => {
+    setBookedFor(event.target.value);
+  };
+
   const handleProceedToPay = () => {
     if (ticketType && adults >= 0 && kids >= 0) {
-      alert(`Proceeding to pay ₹${totalPrice} for ${totalMembers} members.`);
+      const ticketTypeId = selectedTicket.ticket_type_id; // Assuming you have this in ticketData
+
+      const payload = {
+        ticketTypeId,
+        ticketPrice: totalPrice,
+        noOfMembers: totalMembers,
+        bookedFor, // Include bookedFor in the payload
+      };
+
+      axios.post('http://localhost:8000/tickets/book', payload, {
+        withCredentials: true // Important: allows cookies to be sent and received
+      })
+        .then(response => {
+          console.log(response)
+          alert('Ticket booked successfully!');
+        })
+        .catch(error => {
+          console.error("Error booking ticket:", error);
+          alert('Failed to book the ticket. Please try again.');
+        });
     } else {
       alert('Please select a ticket type and enter valid quantities.');
     }
@@ -103,7 +127,7 @@ function BookATicket() {
           <div className="quantity-and-description mt-3 row">
             <fieldset className="quantity row mb-5">
               <legend>Quantity</legend>
-              <label className="col-6">
+              <label className="col-sm-4">
                 Adults:
                 <input
                   className="adult col-12"
@@ -114,7 +138,7 @@ function BookATicket() {
                   required
                 />
               </label>
-              <label className="col-6">
+              <label className="col-sm-4">
                 Kids:
                 <input
                   className="kid col-12"
@@ -122,6 +146,16 @@ function BookATicket() {
                   value={kids}
                   onChange={handleKidsChange}
                   min="0"
+                  required
+                />
+              </label>
+              <label className="col-sm-4">
+                Book For
+                <input
+                  className="col-12"
+                  type="date"
+                  value={bookedFor}
+                  onChange={handleBookedForChange}
                   required
                 />
               </label>

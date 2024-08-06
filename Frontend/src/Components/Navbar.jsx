@@ -1,14 +1,21 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
-import "./Navbar.css";
-import ParkEaseLogo from "../Images/ParkEaseLogo.png";
-import { useLocation } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { NavLink, useLocation } from "react-router-dom";
+import Cookies from "js-cookie";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap";
+import ParkEaseLogo from "../Images/ParkEaseLogo.png";
+import "./Navbar.css";
 
-function Navbar({ isLoggedIn, onLogout }) {
-
+function Navbar() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const location = useLocation();
+
+  useEffect(() => {
+    const uid = Cookies.get("uid");
+    if (uid) {
+      setIsLoggedIn(true);
+    }
+  }, []);
 
   const scrollToExplore = (event) => {
     event.preventDefault();
@@ -21,6 +28,7 @@ function Navbar({ isLoggedIn, onLogout }) {
       window.location.href = "/#explore-section";
     }
   };
+
   const scrollToEvent = (event) => {
     event.preventDefault();
     if (location.pathname === "/") {
@@ -44,6 +52,12 @@ function Navbar({ isLoggedIn, onLogout }) {
       window.location.href = "/#enquiry-section";
     }
   };
+
+  const logOut = () => {
+    Cookies.remove("uid");
+    setIsLoggedIn(false);
+  };
+
   return (
     <nav className="navbar navbar-expand-lg">
       <div className="container-fluid">
@@ -66,20 +80,20 @@ function Navbar({ isLoggedIn, onLogout }) {
           <i className="fas fa-bars"></i>
         </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul className="navbar-nav me-auto ms-3 mb-3 mb-lg-0 link-section mb-lg-0 mb-2 flex-lg-row flex-md-col flex- flex-sm-column">
+          <ul className="navbar-nav me-auto ms-3 mb-3 mb-lg-0 link-section mb-lg-0 mb-2 flex-lg-row flex-md-col flex-sm-column">
             <li className="nav-item">
               <p className="nav-link" onClick={scrollToExplore}>
-                explore
+                Explore
               </p>
             </li>
             <li className="nav-item">
               <p className="nav-link" onClick={scrollToEvent}>
-                events
+                Events
               </p>
             </li>
             <li className="nav-item">
               <p className="nav-links" onClick={scrollToEnquiry}>
-                enquiry
+                Enquiry
               </p>
             </li>
           </ul>
@@ -91,7 +105,7 @@ function Navbar({ isLoggedIn, onLogout }) {
             </li>
             <li>
               {isLoggedIn ? (
-                <button onClick={onLogout} className="common-button">Logout</button>
+                <NavLink to="/" onClick={logOut} activeClassName="active" >Log Out</NavLink>
               ) : (
                 <NavLink to="/LoginPage">Login</NavLink>
               )}
@@ -110,22 +124,6 @@ function Navbar({ isLoggedIn, onLogout }) {
         </div>
       </div>
     </nav>
-    /* <nav className="navbar">
-      <div className="navbar-logo">
-        <img src={ParkEaseLogo} alt="ParkEase Logo" className="logo-image" />
-        <div className='link-section'>
-          <a href='#more' onClick={scrollToExplore} >explore</a>
-          <a href='#more' onClick={scrollToEvent}>events</a>
-          <a href='#more' onClick={scrollToEnquiry} >enquiry</a>
-        </div>
-      </div>
-      <ul className="navbar-links">
-        <li><NavLink to="/" activeClassName="active" exact>Home</NavLink></li>
-        <li><NavLink to="/LoginPage" activeClassName="active"><b>Login</b></NavLink></li>
-        <li><NavLink to="/BookATicket" activeClassName="active"><b>Book A Ticket</b></NavLink></li>
-        <li><NavLink to="/BookOrder" activeClassName="active"><b>Order Food</b></NavLink> </li>
-      </ul>
-    </nav> */
   );
 }
 

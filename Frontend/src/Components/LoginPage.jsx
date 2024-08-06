@@ -187,7 +187,6 @@ import "bootstrap/dist/js/bootstrap";
 export default function LoginPage({ onLogin }) {
   const [mailId, setMailId] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
@@ -196,7 +195,7 @@ export default function LoginPage({ onLogin }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    if (!mailId || !password || !role) {
+    if (!mailId || !password) {
       setError("Please fill all fields.");
       return;
     }
@@ -207,15 +206,16 @@ export default function LoginPage({ onLogin }) {
       const response = await axios.post("http://localhost:8000/login", {
         mailId,
         password,
-        role,
+      },{
+        withCredentials: true // Important: allows cookies to be sent and received
       });
 
       if (response.data.success) {
         setSuccess("Login successful");
         setError("");
-        onLogin(role); // Pass role to onLogin
+        const role = response.data.role;
+        onLogin(role);
 
-        // Redirect based on role
         switch (role) {
           case 'admin':
             navigate('/adminDashboard');
@@ -282,25 +282,6 @@ export default function LoginPage({ onLogin }) {
               required
             />
             <div className="invalid-feedback">Please enter password.</div>
-          </div>
-          <div className="mb-3">
-            <label htmlFor="roleSelect" className="form-label">
-              Select Role
-            </label>
-            <select
-              id="roleSelect"
-              className="form-select"
-              value={role}
-              onChange={(e) => setRole(e.target.value)}
-              required
-            >
-              <option value="">Select a role</option>
-              <option value="admin">Admin</option>
-              <option value="hr">HR</option>
-              <option value="stallExecutive">Stall Executive</option>
-              <option value="user">User</option>
-            </select>
-            <div className="invalid-feedback">Please select a role.</div>
           </div>
           <button type="submit" className="btn btn-primary mx-auto col-5">
             Login
