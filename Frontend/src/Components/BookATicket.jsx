@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 import "./BookATicket.css";
 import axios from "axios";
 
@@ -168,6 +169,10 @@ function BookATicket() {
             </div>
           </div>
           <button className="ms-auto d-block" onClick={handleProceedToPay}>Proceed to Pay</button>
+          {/* Button to navigate to TicketHistory */}
+          <Link to="/ticket-history" className="btn btn-secondary mt-3">
+            View Ticket History
+          </Link>
         </div>
       </div>
     </>

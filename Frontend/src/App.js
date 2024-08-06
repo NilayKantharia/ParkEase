@@ -1,4 +1,3 @@
-import './App.css';
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Navbar from './Components/Navbar';
@@ -14,7 +13,7 @@ import HrDashboard from './Components/HrDashboard';
 import EmployeeDetails from './Components/EmployeeDetails';
 import AddNewEmployee from './Components/AddNewEmployee';
 import ViewEmployee from './Components/ViewEmployee';
-
+import TicketHistory from './Components/TicketHistory'; // Import the TicketHistory component
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -71,9 +70,10 @@ function App() {
         <Route path="/employee-details" element={<EmployeeDetails />} />
         <Route path="/add-new-employee" element={<AddNewEmployee />} />
         <Route path="/view-employee/:id" element={<ViewEmployee />} />
+        <Route path="/ticket-history" element={<TicketHistory />} /> {/* Add this route */}
 
         {/* Redirect all other routes to Home */}
-        <Route path="*" element={<Navigate to="/" />} />
+        {/* <Route path="*" element={<Navigate to="/" />} /> */}
       </Routes>
     </Router>
   );

@@ -1,0 +1,25 @@
+.ticket-history-container {
+    padding: 20px;
+  }
+  
+  .ticket-history-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .ticket-history-table th,
+  .ticket-history-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  .ticket-history-table th {
+    background-color: #f4f4f4;
+    text-align: left;
+  }
+  
+  .error {
+    color: red;
+    font-weight: bold;
+  }
+  
