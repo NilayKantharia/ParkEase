@@ -50,10 +50,21 @@ const getCurrentCustomers = (req, res) => {
     })
 }
 
+const getTopSellingItems = (req, res) => {
+    const query = "SELECT i.item_name, SUM(oi.quantity) AS total_sales FROM order_item oi JOIN item i ON oi.item_id = i.item_id GROUP BY i.item_name ORDER BY total_sales DESC LIMIT 5;"
+    connection.query(query, (err, result) => {
+        if(err){
+            return res.status(400).json(err);
+        }
+        return res.status(200).json(result);
+    })
+}
+
 module.exports = {
     getTopStalls,
     getLastMonthCustomers,
     getTopTickets,
     getEmployeeCount,
-    getCurrentCustomers
+    getCurrentCustomers,
+    getTopSellingItems
 }
