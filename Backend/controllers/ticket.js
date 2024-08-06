@@ -3,7 +3,8 @@ const connection = require('../config/connection');
 //Book ticket Controller
 const handleBookTicket = (req, res) => {
     const query = `INSERT INTO ticket (user_id, ticket_type_id, ticket_price, no_of_members, booked_for) VALUES (?, ?, ?, ?, ?)`;
-    const {userId, ticketTypeId, ticketPrice, noOfMembers, bookedFor} = req.body;
+    const userId = req.userId;
+    const {ticketTypeId, ticketPrice, noOfMembers, bookedFor} = req.body;
     connection.query(query, [userId, ticketTypeId, ticketPrice, noOfMembers, bookedFor], (err, result) => {
         if(err) {
             return res.status(400).json(err);
@@ -11,6 +12,17 @@ const handleBookTicket = (req, res) => {
         return res.status(201).json("success");
     });
 };
+
+const getTicketHistory = (req, res) => {
+    const userId = req.userId;
+    const query = 'SELECT * FROM ticket WHERE user_id = ?;';
+    connection.query(query, [userId], (err, result) => {
+        if(err){
+            return res.status(400).json(err);
+        }
+        return res.status(200).json(result);
+    })
+}
 
 //View Ticket Controller
 const handleViewTicket = (req, res) => {
@@ -77,5 +89,6 @@ module.exports = {
     handleShowAllTicket,
     handleAddNewTicketType,
     handleUpdateTicketType,
-    handleDeleteTicketType
+    handleDeleteTicketType,
+    getTicketHistory
 }
