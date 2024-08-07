@@ -61,13 +61,14 @@ export default function TopStalls() {
         },
       },
     },
+    maintainAspectRatio: false,
   };
 
   return (
     <div className="card">
       <div className="card-body">
-        <h5 className="card-title text-center">Top 5 Stalls</h5>
-        <div style={{ position: "relative", height: "300px", width: "100%" }}>
+        Top 5 Stalls
+        <div style={{ position: "relative", height: "300px", width: "95%" }}>
           <Bar data={chartDataOfStalls} options={stallsOptions} />
         </div>
       </div>

@@ -32,7 +32,7 @@ const BookOrder = () => {
     const fetchItems = async () => {
       try {
         const url = selectedStall
-          ? `http://localhost:8000/items/${selectedStall}`
+          ? `http://localhost:8000/items/stall/${selectedStall}`
           : "http://localhost:8000/items";
         const response = await axios.get(url);
         console.log("Items:", response.data); // for debugging
@@ -95,7 +95,7 @@ const BookOrder = () => {
         </div>
         <div className="row">
           {items
-            .filter(item => !selectedStall || item.stall_id === selectedStall) // Filter items based on selected stall
+            .filter(item => !selectedStall || item.stall_id === selectedStall)
             .map((item) => (
               <div className="col-md-4 mb-4" key={item.item_id}>
                 <div className="card">

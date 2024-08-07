@@ -52,30 +52,33 @@ export default function LoginPage({ onLogin }) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+  
     if (!mailId || !password) {
       setError("Please fill all fields.");
       return;
     }
-
+  
     setError("");
-
+  
     try {
       const response = await axios.post(
         "http://localhost:8000/login",
         { mailId, password },
         { withCredentials: true }
       );
-
+  
       if (response.data.success) {
         setSuccess("Login successful");
         setError("");
         const role = response.data.role;
+        const name = response.data.name;
         onLogin(role);
-
+        Cookies.set('role', role);
+        Cookies.set('name', name); // Store the name in cookies or state
+  
         switch (role) {
           case "admin":
-            navigate("/adminDashboard");
+            navigate("/adminDashboard", { state: { name } });
             break;
           case "hr":
             navigate("/hrDashboard");
@@ -97,6 +100,7 @@ export default function LoginPage({ onLogin }) {
       setSuccess("");
     }
   };
+  
 
   return (
     <div className="form-container">

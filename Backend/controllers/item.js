@@ -72,6 +72,17 @@ const handleViewDeleted = (req, res) => {
     })
 }
 
+const getStallItems = (req, res) => {
+    const query = 'SELECT * FROM item WHERE stall_id = ? AND deleted = 0;';
+    const stallId = req.params.stallId;
+    connection.query(query, [stallId], (err, result) => {
+        if(err){
+            return res.status(400).json(err);
+        }
+        return res.status(200).json(result);
+    })
+}
+
 module.exports = {
     handleAddNewItem,
     renderNew,
@@ -79,5 +90,6 @@ module.exports = {
     getItemDetails,
     handleEditItem,
     handleDeleteItem,
-    handleViewDeleted
+    handleViewDeleted,
+    getStallItems
 }

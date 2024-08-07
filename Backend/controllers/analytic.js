@@ -60,11 +60,44 @@ const getTopSellingItems = (req, res) => {
     })
 }
 
+const getTotalTicketSale = (req, res) => {
+    const query = "SELECT SUM(ticket_price * no_of_members) AS total_ticket_sale FROM ticket;";
+    connection.query(query, (err, result) => {
+        if(err){
+            return res.status(400).json(err);
+        }
+        return res.status(200).json(result);
+    })
+}
+
+const getTicketsSoldThisMonth = (req, res) => {
+    const query = "SELECT SUM(ticket_price * no_of_members) AS total_ticket_sales FROM ticket WHERE YEAR(generated_on) = YEAR(CURDATE()) AND MONTH(generated_on) = MONTH(CURDATE());";
+    connection.query(query, (err, result) => {
+        if(err){
+            return res.status(400).json(err);
+        }
+        return res.status(200).json(result);
+    })
+}
+
+const getItemSaleThisMonth = (req, res) => {
+    const query = "SELECT SUM(oi.quantity * i.price) AS total_item_sale FROM order_item oi JOIN item i ON oi.item_id = i.item_id WHERE oi.order_id IN (SELECT order_id FROM `order` WHERE order_status = 'Order Placed');"
+    connection.query(query, (err, result) => {
+        if(err){
+            return res.status(400).json(err);
+        }
+        return res.status(200).json(result);
+    })
+}
+
 module.exports = {
     getTopStalls,
     getLastMonthCustomers,
     getTopTickets,
     getEmployeeCount,
     getCurrentCustomers,
-    getTopSellingItems
+    getTopSellingItems,
+    getTotalTicketSale,
+    getTicketsSoldThisMonth,
+    getItemSaleThisMonth
 }

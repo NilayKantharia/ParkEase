@@ -1,23 +1,30 @@
 import React, { useState, useEffect } from "react";
-// import {
-//   Chart as ChartJS,
-//   BarElement,
-//   CategoryScale,
-//   LinearScale,
-//   Tooltip,
-//   Legend,
-// } from "chart.js";
-// import { Bar } from "react-chartjs-2";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.min.js";
+import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import TopTickets from "./TopTickets";
 import TopStalls from "./TopStalls";
-// import { height } from "@fortawesome/free-solid-svg-icons/fa0";
 import TopFiveSellingItems from "./TopFiveSellingItems";
+import {
+  Chart as ChartJS,
+  BarElement,
+  CategoryScale,
+  LinearScale,
+  ArcElement,
+  Tooltip,
+  Legend,
+} from "chart.js";
+import { Bar } from "react-chartjs-2";
 
-// Register the necessary components for Chart.js
-// ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
+ChartJS.register(
+  BarElement,
+  CategoryScale,
+  LinearScale,
+  ArcElement,
+  Tooltip,
+  Legend
+);
 
 export default function AdminDashboard() {
   const navigate = useNavigate();
@@ -25,63 +32,68 @@ export default function AdminDashboard() {
   const [noOfCustomers, setNoOfCustomers] = useState([]);
   const [currentCustomers, setCurrentCustomers] = useState(0);
   const [noOfEmployees, setNoOfEmployees] = useState(0);
-  
+  const [totalTicketSale, setTotalTicketSale] = useState(0);
+  const [ticketsSoldThisMonth, setTicketsSoldThisMonth] = useState(0);
+  const [totalItemSale, setTotalItemSale] = useState(0);
+  const name = Cookies.get("name");
 
-  // Fetching top 5 stalls data
   useEffect(() => {
+    // Fetch top 5 stalls data
     fetch("http://localhost:8000/analytics/top-5-stalls")
       .then((response) => response.json())
       .then((data) => setStalls(data))
       .catch((error) => console.error("Error fetching stalls data:", error));
 
-      fetch("http://localhost:8000/analytics/current-customers")
+    // Fetch current customers data
+    fetch("http://localhost:8000/analytics/current-customers")
       .then((response) => response.json())
       .then((data) => setCurrentCustomers(data[0].current_customers))
-      .catch((error) => console.error("Error fetching current customers data:", error));
+      .catch((error) =>
+        console.error("Error fetching current customers data:", error)
+      );
 
-      fetch("http://localhost:8000/analytics/employee-count")
+    // Fetch employee count data
+    fetch("http://localhost:8000/analytics/employee-count")
       .then((response) => response.json())
       .then((data) => setNoOfEmployees(data[0].employee_count))
-      .catch((error) => console.error("Error fetching employee count data:", error));
+      .catch((error) =>
+        console.error("Error fetching employee count data:", error)
+      );
 
+    // Fetch total ticket sale data
+    fetch("http://localhost:8000/analytics/total-ticket-sale")
+      .then((response) => response.json())
+      .then((data) => setTotalTicketSale(data[0].total_ticket_sale))
+      .catch((error) =>
+        console.error("Error fetching total ticket sale data:", error)
+      );
+
+    // Fetch tickets sold this month data
+    fetch("http://localhost:8000/analytics/tickets-sold-this-month")
+      .then((response) => response.json())
+      .then((data) => setTicketsSoldThisMonth(data[0].total_ticket_sales))
+      .catch((error) =>
+        console.error("Error fetching tickets sold this month data:", error)
+      );
+
+    // Fetch total item sale data
+    fetch("http://localhost:8000/analytics/items-this-month")
+      .then((response) => response.json())
+      .then((data) => setTotalItemSale(data[0].total_item_sale))
+      .catch((error) =>
+        console.error("Error fetching total item sale data:", error)
+      );
+
+    fetch("http://localhost:8000/analytics/last-5-months")
+      .then((response) => response.json())
+      .then((data) => setNoOfCustomers(data))
+      .catch((error) => console.error("Error fetching customers data:", error));
   }, []);
 
-  // Prepare data and options for the chart
-  const chartDataOfStalls = {
-    labels: stalls.map((stall) => stall.name), // Replace 'name' with the actual field from your data
-    datasets: [
-      {
-        label: "Sales",
-        data: stalls.map((stall) => stall.sales), // Replace 'sales' with the actual field from your data
-        backgroundColor: "rgba(75, 192, 192, 0.2)",
-        borderColor: "rgba(75, 192, 192, 1)",
-        borderWidth: 1,
-      },
-    ],
-  };
-
-  const stallsOptions = {
-    responsive: true,
-    maintainAspectRatio: false,
-    scales: {
-      x: {
-        title: {
-          display: true,
-          text: "Stalls",
-        },
-      },
-      y: {
-        title: {
-          display: true,
-          text: "Total Sales",
-        },
-        beginAtZero: true,
-      },
-    },
-  };
-
   const customerLabels = noOfCustomers.map((customer) => customer.month);
-  const customerData = noOfCustomers.map((customer) => customer.no_of_customers);
+  const customerData = noOfCustomers.map(
+    (customer) => customer.no_of_customers
+  );
   const backgroundColor2 = [
     "#9966FF",
     "#FFCE56",
@@ -91,77 +103,67 @@ export default function AdminDashboard() {
   ];
 
   const options2 = {
+    responsive: true,
     indexAxis: "y",
+    plugins: {
+      legend: {
+        position: "top",
+      },
+      title: {
+        display: false,
+        text: "No Of Customers",
+      },
+    },
     scales: {
       x: {
         title: {
           display: true,
           text: "No Of Customers",
+          beginAtZero: true,
         },
       },
       y: {
         title: {
           display: true,
           text: "Months",
+          beginAtZero: true,
         },
       },
     },
+    maintainAspectRation: false,
   };
 
-  const handleViewHrDetails = () => {
-    navigate("/hr-info");
+  const customerChartData = {
+    labels: customerLabels,
+    datasets: [
+      {
+        label: "Customers",
+        data: customerData,
+        backgroundColor: backgroundColor2,
+      },
+    ],
   };
-
-  const handleAddNewHr = () => {
-    navigate("/add-new-hr");
-  };
-
-  const handleEditHr = () => {
-    navigate("/edit-hr");
-  };
-
-  const handleDeleteHr = () => {
-    const confirmed = window.confirm("Are you sure you want to delete?");
-    if (confirmed) {
-      console.log("HR deleted");
-    }
-  };
-
-  const handleViewStallExecutives = () => {
-    navigate("/stall-executives");
-  };
-
-  const handleAddNewStallExecutive = () => {
-    navigate("/add-new-stall-executive");
-  };
-
-  const handleEditStallExecutive = () => {
-    navigate("/edit-stall-executive");
-  };
-
-  const handleDeleteStallExecutive = () => {
-    const confirmed = window.confirm("Are you sure you want to delete?");
-    if (confirmed) {
-      console.log("Stall Executive deleted");
-    }
-  };
-
 
   return (
     <>
       <div className="container">
         <h1>Admin Dashboard</h1>
-        {/* Other components and content */}
       </div>
 
       <div className="row m-0">
-        <div className="col-10 mx-auto ">
+        <div className="col-10 mx-auto">
           <div className="row g-3 mb-3">
             <div className="col-lg-4 col-md-4">
-              <div className="card" style={{ height: "15rem" }}>
+              <div
+                className="card text-white bg-primary"
+                style={{ height: "15rem" }}
+              >
                 <div className="card-body">
-                  <h1>Hello, Admin</h1>
-                  <p>Ahhh</p>
+                  <h1>Hello {name},</h1>
+                  <h4>
+                    The backbone of any organization is made up of dedicated
+                    administrative professionals.
+                  </h4>
                 </div>
               </div>
             </div>
@@ -169,7 +171,7 @@ export default function AdminDashboard() {
               <div className="card" style={{ height: "15rem" }}>
                 <div className="card-body text-white bg-success">
                   <h1>Total Ticket Sale</h1>
-                  <h1>&#x20B9; 5Cr.</h1>
+                  <h1>&#x20B9; {totalTicketSale}</h1>
                 </div>
               </div>
             </div>
@@ -189,35 +191,35 @@ export default function AdminDashboard() {
               <TopStalls />
             </div>
             <div className="col-md-4 mb-3">
-              <div className="card h-100">
-                <div className="card-body"> 
-              <h1>No. of Tickets Sold for this month</h1>
+              <div className="card h-100 bg-dark text-white">
+                <div className="card-body">
+                  <h1>Tickets Sold for this month</h1>
+                  <h1>&#x20B9; {ticketsSoldThisMonth}</h1>
+                </div>
               </div>
             </div>
-          </div>
-            
           </div>
           <div className="row g-3 mb-5">
             <div className="col-md-4">
               <div className="card" style={{ height: "15rem" }}>
-                <div className="card-body bg-secondary text-white">No. of Employees
-                <h1>{noOfEmployees}</h1>
+                <div className="card-body bg-secondary text-white">
+                  <h1>No. of Employees</h1>
+                  <h1>{noOfEmployees}</h1>
                 </div>
               </div>
             </div>
             <div className="col-md-4">
               <div className="card" style={{ height: "15rem" }}>
                 <div className="card-body text-black bg-warning">
-                  <h1>Total Item Sale</h1>
-                  <h1>&#x20B9; 5Cr.</h1>
+                  <h1>Total item sales this month</h1>
+                  <h1>&#x20B9; {totalItemSale}</h1>
                 </div>
               </div>
             </div>
             <div className="col-md-4">
               <div className="card" style={{ height: "15rem" }}>
                 <div className="card-body text-white bg-primary">
-                  No of customers present in park
-
+                  <h1>No of customers present in park</h1>
                   <h1>{currentCustomers}</h1>
                 </div>
               </div>
@@ -225,9 +227,25 @@ export default function AdminDashboard() {
           </div>
 
           <div className="row g-3 mb-3">
-            <div className="col-12">
-              <div className="card" style={{ height: "25rem", width:"100%" }}>
+            <div className="col-md-6">
+              <div className="card" style={{ height: "22rem" }}>
                 <TopFiveSellingItems />
+              </div>
+            </div>
+            <div className="col-md-6">
+              <div className="card" style={{ height: "22rem" }}>
+                <div className="card-body">
+                  No Of Customers
+                  <div
+                    style={{
+                      position: "relative",
+                      height: "300px",
+                      width: "100%",
+                    }}
+                  >
+                    <Bar data={customerChartData} options={options2} />
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -247,14 +265,14 @@ export default function AdminDashboard() {
                     <button
                       type="button"
                       className="btn btn-primary"
-                      onClick={handleViewHrDetails}
+                      // onClick={handleViewHrDetails}
                     >
                       View HR Details
                     </button>
                     <button
                       type="button"
                       className="btn btn-secondary"
-                      onClick={handleAddNewHr}
+                      // onClick={handleAddNewHr}
                     >
                       Add New HR
                     </button>
@@ -269,22 +287,6 @@ export default function AdminDashboard() {
               <h6 className="text-center">Stall Executives</h6>
               <div className="card" style={{ height: "25rem" }}>
                 <div className="card-body">Stall Executive Options</div>
-                <div className="d-grid gap-2">
-                    <button
-                      type="button"
-                      className="btn btn-primary"
-                      onClick={handleViewStallExecutives}
-                    >
-                      View Stalls
-                    </button>
-                    <button
-                      type="button"
-                      className="btn btn-secondary"
-                      onClick={handleAddNewStallExecutive}
-                    >
-                      Add New Stall Executive
-                    </button>
-                  </div>
               </div>
             </div>
             <div className="col-lg-6 col-md-6">

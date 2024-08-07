@@ -23,6 +23,8 @@ import AddNewStallExecutive from './Components/AddNewStallOwner'; // Ensure path
 import EditStallExecutive from './Components/EditStallOwner'; 
 import StallExecutiveDashboard from './Components/StallExecutiveDashboard'; // Adjust path if necessary
 import ShowItems from './Components/ShowItems'; // Adjust path if necessary
+import 'bootstrap/dist/js/bootstrap.bundle.min';
+
 
 
 function App() {

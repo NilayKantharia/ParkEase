@@ -46,7 +46,7 @@ const handleUserLogin = (req, res) => {
             user = results[0]
             token = setUser(user);
             res.cookie('uid', token);
-            res.status(200).json({success: true, message: 'Login successful', role: user.role});
+            res.status(200).json({success: true, message: 'Login successful', role: user.role, name:user.user_name});
 
         } else {
     

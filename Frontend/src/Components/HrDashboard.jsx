@@ -12,7 +12,7 @@ import { Bar } from "react-chartjs-2";
 import "bootstrap/dist/css/bootstrap.min.css";
 import TopTickets from "./TopTickets";
 import EmployeeDetails from "./EmployeeDetails";
-// import axios from 'axios'; // Uncomment if using axios
+import Cookies from "js-cookie";
 
 ChartJS.register(
   BarElement,
@@ -28,6 +28,7 @@ export default function HrDashboard() {
   const [noOfCustomers, setNoOfCustomers] = useState([]);
   const [currentCustomers, setCurrentCustomers] = useState(0);
   const [noOfEmployees, setNoOfEmployees] = useState(0);
+  const name = Cookies.get("name");
 
   const scrollToEmployeeDetails = () => {
     const employeeSection = document.getElementById("employee-details-section");
@@ -150,7 +151,7 @@ export default function HrDashboard() {
                 className="card-body bg-primary rounded-4 h-100"
                 style={{ borderBottomRightRadius: "0" }}
               >
-                <h1 className="text-white text-start">Hello Anmol,</h1>
+                <h1 className="text-white text-start">Hello {name},</h1>
                 <h3 className="card-text text-white text-start mt-3">
                   Welcome back! Here's to a productive day ahead.
                 </h3>

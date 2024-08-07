@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-// import axios from 'axios'; // Uncomment when integrating Axios
+import axios from 'axios';
+import 'bootstrap/dist/css/bootstrap.min.css'; // Ensure Bootstrap CSS is imported
 
 const AddNewEmployee = () => {
   const navigate = useNavigate();
@@ -18,75 +19,84 @@ const AddNewEmployee = () => {
   };
 
   const handleAddEmployee = async () => {
-    // Uncomment when integrating Axios
-    // try {
-    //   await axios.post('YOUR_API_ENDPOINT/employees', newEmployee);
-    //   console.log('Employee added successfully');
-    // } catch (error) {
-    //   console.error('Error adding employee:', error);
-    // }
-    alert('Employee added successfully');
-    // Remain on the current page after adding the employee
+    try {
+      await axios.post('http://localhost:8000/employees/new', newEmployee);
+      console.log('Employee added successfully');
+      alert('Employee added successfully');
+      // Remain on the current page after adding the employee
+    } catch (error) {
+      console.error('Error adding employee:', error);
+      alert('Error adding employee. Please try again.');
+    }
   };
 
   const handleBack = () => {
-    // Navigate back to the HrDashboard
-    navigate('/');
+    navigate('/HrDashboard');
   };
 
   return (
-    <div className="add-new-employee">
-      <h1>Add New Employee</h1>
-      <form>
-        <div>
-          <label>Name:</label>
+    <div className="mt-5 row m-5">
+      <h1 className="mb-4">Add New Employee</h1>
+      <form className='col-4 ms-5'>
+        <div className="mb-3">
+          <label htmlFor="emp_name" className="form-label">Name:</label>
           <input
             type="text"
+            id="emp_name"
             name="emp_name"
+            className="form-control"
             value={newEmployee.emp_name}
             onChange={handleInputChange}
           />
         </div>
-        <div>
-          <label>Email:</label>
+        <div className="mb-3">
+          <label htmlFor="emp_mail" className="form-label">Email:</label>
           <input
             type="email"
+            id="emp_mail"
             name="emp_mail"
+            className="form-control"
             value={newEmployee.emp_mail}
             onChange={handleInputChange}
           />
         </div>
-        <div>
-          <label>Phone No:</label>
+        <div className="mb-3">
+          <label htmlFor="phone_no" className="form-label">Phone No:</label>
           <input
             type="tel"
+            id="phone_no"
             name="phone_no"
+            className="form-control"
             value={newEmployee.phone_no}
             onChange={handleInputChange}
           />
         </div>
-        <div>
-          <label>Salary:</label>
+        <div className="mb-3">
+          <label htmlFor="salary" className="form-label">Salary:</label>
           <input
             type="number"
+            id="salary"
             name="salary"
+            className="form-control"
             value={newEmployee.salary}
             onChange={handleInputChange}
           />
         </div>
-        <div>
-          <label>Work Allotted:</label>
+        <div className="mb-3">
+          <label htmlFor="work_allotted" className="form-label">Work Allotted:</label>
           <input
             type="text"
+            id="work_allotted"
             name="work_allotted"
+            className="form-control"
             value={newEmployee.work_allotted}
             onChange={handleInputChange}
           />
         </div>
-        <button type="button" onClick={handleAddEmployee}>
+        <button type="button" className="btn btn-primary me-2" onClick={handleAddEmployee}>
           Add Employee
         </button>
-        <button type="button" onClick={handleBack}>
+        <button type="button" className="btn btn-secondary" onClick={handleBack}>
           Back
         </button>
       </form>

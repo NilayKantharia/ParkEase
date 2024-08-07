@@ -58,6 +58,7 @@ const TopFiveSellingItems = () => {
         beginAtZero: true,
       },
     },
+    maintainAspectRatio: false,
   };
 
   if (loading) return <p>Loading...</p>;

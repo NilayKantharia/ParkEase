@@ -3,9 +3,9 @@ const connection = require('../config/connection');
 
 //Add New Employee Controller
 const handleAddNewEmployee = (req, res) => {
-    const {empName, empMail, phoneNo, salary, workAllotted} = req.body;
+    const {emp_name, emp_mail, phone_no, salary, work_allotted} = req.body;
     const query = 'INSERT INTO employee (emp_name, emp_mail, phone_no, salary, work_allotted) VALUES (?, ?, ?, ?, ?)';
-    connection.query(query, [empName, empMail, phoneNo, salary, workAllotted], (err, result) => {
+    connection.query(query, [emp_name, emp_mail, phone_no, salary, work_allotted], (err, result) => {
         if(err) {
             return res.status(400).json(err);
         }
