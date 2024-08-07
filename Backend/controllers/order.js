@@ -90,9 +90,20 @@ const statusUpdate =async(req,res)=>{
     
 }
 
+const getAllOrders = (req, res) => {
+    const query = 'SELECT o.order_id, o.order_placed_at, o.order_status, i.item_name, i.price, oi.quantity, s.stall_name FROM `order` o JOIN order_item oi on o.order_id = oi.order_id JOIN item i on oi.item_id = i.item_id JOIN stall s on o.stall_id = s.stall_id;';
+    connection.query(query, (err, result) => {
+        if(err) {
+            return res.status(400).json(err);
+        }
+        return res.status(200).json(result);
+    })
+}
+
 module.exports = {
     handleNewOrder,
     handleAllFoodDetails,
     handleOrderHistory,
-    statusUpdate
+    statusUpdate,
+    getAllOrders
 }

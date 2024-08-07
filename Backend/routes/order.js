@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const {handleNewOrder, handleAllFoodDetails, handleOrderHistory,statusUpdate} = require('../controllers/order');
+const {handleNewOrder, handleAllFoodDetails, handleOrderHistory,statusUpdate, getAllOrders} = require('../controllers/order');
 const {restrictedToLoggedInUsersOnly} = require('../middlewares/auth');
 const {validateTicket} = require('../middlewares/check')
 
@@ -9,6 +9,8 @@ router.post('/new', restrictedToLoggedInUsersOnly, validateTicket, handleNewOrde
 
 //Get All Food Details
 router.get('/', handleAllFoodDetails);
+
+router.get('/all', getAllOrders);
 
 //Get Order History
 router.get('/history', restrictedToLoggedInUsersOnly, handleOrderHistory);
