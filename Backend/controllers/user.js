@@ -56,9 +56,20 @@ const handleUserLogin = (req, res) => {
     });
 };
 
+const getAllUsers = (req, res) => {
+    const query = 'SELECT * FROM user;';
+    connection.query(query, (err, result) => {
+        if(err){
+            return res.status(400).json(err);
+        }
+        return res.status(200).json(result);
+    })
+}
+
 module.exports = {
     handleUserSignupForm,
     handleUserSignup,
     handleUserLoginForm,
-    handleUserLogin
+    handleUserLogin,
+    getAllUsers
 };
