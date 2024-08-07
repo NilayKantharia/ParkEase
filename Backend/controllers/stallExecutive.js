@@ -59,9 +59,20 @@ const getStallExecutive = (req, res) => {
     })
 }
 
+const getAllExecutives = (req, res) => {
+  const query = "SELECT se.user_id, u.user_name, u.mail_id, s.stall_name FROM stall_executive se JOIN user u ON se.user_id = u.user_id JOIN stall s ON se.stall_id = s.stall_id;";
+  connection.query(query, (err, result) => {
+    if(err){
+      return res.status(400).json(err);
+    }
+    return res.status(200).json(result);
+  })
+}
+
 module.exports = {
     handleAddNewStallExecutive,
     handleEditStallExecutive,
     handleDeleteStallExecutive,
-    getStallExecutive
+    getStallExecutive,
+    getAllExecutives
 }

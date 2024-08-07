@@ -1,8 +1,10 @@
 const express = require('express');
 const router = express.Router({mergeParams: true});
-const {handleAddNewStallExecutive, handleEditStallExecutive, handleDeleteStallExecutive, getStallExecutive} = require("../controllers/stallExecutive");
+const {handleAddNewStallExecutive, handleEditStallExecutive, handleDeleteStallExecutive, getStallExecutive, getAllExecutives} = require("../controllers/stallExecutive");
  
-//Add New Stall Executive
+
+router.get('/', getAllExecutives);
+
 router.post('/new', handleAddNewStallExecutive);
 
 router.patch('/:sEID/edit', handleEditStallExecutive);
