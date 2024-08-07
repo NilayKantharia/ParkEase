@@ -15,7 +15,7 @@ const HrInfo = () => {
 
   const fetchHrList = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/hrs');
+      const response = await axios.get('http://localhost:8000/hrs/');
       setHrList(response.data);
     } catch (error) {
       console.error('Error fetching HR list:', error);

@@ -24,6 +24,8 @@ import EditStallExecutive from './Components/EditStallOwner';
 import StallExecutiveDashboard from './Components/StallExecutiveDashboard'; // Adjust path if necessary
 import ShowItems from './Components/ShowItems'; // Adjust path if necessary
 import 'bootstrap/dist/js/bootstrap.bundle.min';
+import UserList from './Components/UserList';
+import ShowOrders from './Components/ShowOrders';
 
 
 
@@ -98,9 +100,11 @@ function App() {
         <Route path="/edit-stall-executive" element={<EditStallExecutive />} />
         <Route path="/stall-executive-dashboard" component={StallExecutiveDashboard} />
         <Route path="/show-items" component={ShowItems} />
+        <Route path="/users" element={<UserList />} />
+        <Route path="/orders" element={<ShowOrders />} />
 
         {/* Redirect all other routes to Home */}
-        {/* <Route path="*" element={<Navigate to="/" />} /> */}
+        <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </Router>
   );

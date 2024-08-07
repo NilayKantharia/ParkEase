@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import EditStallOwner from './EditStallOwner';
 import DeleteStallOwner from './DeleteStallOwner';
-// import AddNewStallOwner from './AddNewStallOwner';
 
 const StallOwnerInfo = () => {
   const [stallOwnerList, setStallOwnerList] = useState([]);
@@ -14,7 +13,7 @@ const StallOwnerInfo = () => {
 
   const fetchStallOwnerList = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/stall-owners');
+      const response = await axios.get('http://localhost:8000/stallexecutives');
       setStallOwnerList(response.data);
     } catch (error) {
       console.error('Error fetching stall owner list:', error);
@@ -23,7 +22,7 @@ const StallOwnerInfo = () => {
 
   const handleDelete = async (stallOwnerId) => {
     try {
-      await axios.delete(`http://localhost:8000/stall-owners/${stallOwnerId}`);
+      await axios.delete(`http://localhost:8000/stallexecutives/${stallOwnerId}/delete`);
       fetchStallOwnerList(); // Refresh the list after deletion
     } catch (error) {
       console.error('Error deleting stall owner:', error);
@@ -36,11 +35,12 @@ const StallOwnerInfo = () => {
   };
 
   return (
-    <div className="stall-owner-list container mt-3">
-      <h2>Stall Owner List</h2>
-      {/* <AddNewStallOwner fetchStallOwnerList={fetchStallOwnerList} /> */}
+    <div className="stall-owner-list container mt-4">
+      <div className="d-flex justify-content-between mb-3">
+        <h2>Stall Owner List</h2>
+      </div>
       <table className="table table-striped mt-3">
-        <thead>
+        <thead className="thead-dark">
           <tr>
             <th>Stall Name</th>
             <th>Owner Name</th>
@@ -50,28 +50,30 @@ const StallOwnerInfo = () => {
         </thead>
         <tbody>
           {stallOwnerList.map((owner) => (
-            <tr key={owner.stall_id}>
-              {editingStallOwner === owner.stall_id ? (
+            <tr key={owner.user_id}>
+              {editingStallOwner === owner.user_id ? (
                 <td colSpan="4">
                   <EditStallOwner owner={owner} onUpdate={handleUpdate} />
                 </td>
               ) : (
                 <>
                   <td>{owner.stall_name}</td>
-                  <td>{owner.owner_name}</td>
-                  <td>{owner.email}</td>
+                  <td>{owner.user_name}</td>
+                  <td>{owner.mail_id}</td>
                   <td>
                     <div className="btn-group" role="group" aria-label="Basic example">
                       <button
                         className="btn btn-primary"
-                        onClick={() => setEditingStallOwner(owner.stall_id)}
+                        onClick={() => setEditingStallOwner(owner.user_id)}
                       >
                         Edit
                       </button>
-                      <DeleteStallOwner
-                        stallOwnerId={owner.stall_id}
-                        onDelete={() => handleDelete(owner.stall_id)}
-                      />
+                      <button
+                        className="btn btn-danger"
+                        onClick={() => handleDelete(owner.stall_id)}
+                      >
+                        Delete
+                      </button>
                     </div>
                   </td>
                 </>

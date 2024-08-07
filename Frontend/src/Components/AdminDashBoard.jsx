@@ -156,13 +156,27 @@ export default function AdminDashboard() {
     navigate("/edit-stall-executive");
   };
 
+  const handleViewHrDetails = () => {
+    navigate('/hr-info');
+  };
+
+  const handleAddNewHr = () => {
+    navigate('/add-new-hr');
+  }
+
+  const handleUserView = () => {
+    navigate('/users');
+  }
+  const handleShowView = () => {
+    navigate('/orders');
+  }
+
   const handleDeleteStallExecutive = () => {
     const confirmed = window.confirm("Are you sure you want to delete?");
     if (confirmed) {
       console.log("Stall Executive deleted");
     }
   };
-
   return (
     <>
       <div className="container mt-4 mb-4 p-1 text-center text-light bg-primary" style={{borderRadius:"3px 3px 10px 10px"}}>
@@ -270,29 +284,24 @@ export default function AdminDashboard() {
           </div>
 
           <div className="row g-3 mb-3">
-            <div className="col-lg-6 col-md-6">
-              <h6 className="text-center">Employees</h6>
-              <div className="card" style={{ height: "25rem" }}>
-                <div className="card-body">Employee Options</div>
-              </div>
-            </div>
+            
             <div className="col-lg-6 col-md-6">
               <h6 className="text-center">HR</h6>
-              <div className="card" style={{ height: "25rem" }}>
+              <div className="card" style={{ height: "13rem" }}>
                 <div className="card-body ">
                   <div className="d-grid gap-2 text-center ">
                     HR options
                     <button
                       type="button"
                       className="btn btn-primary"
-                      // onClick={handleViewHrDetails}
+                      onClick={handleViewHrDetails}
                     >
                       View HR Details
                     </button>
                     <button
                       type="button"
                       className="btn btn-secondary"
-                      // onClick={handleAddNewHr}
+                      onClick={handleAddNewHr}
                     >
                       Add New HR
                     </button>
@@ -300,13 +309,9 @@ export default function AdminDashboard() {
                 </div>
               </div>
             </div>
-          </div>
-
-          <div className="row g-3 mb-5">
             <div className="col-lg-6 col-md-6">
               <h6 className="text-center">Stall Executives</h6>
-              <div className="card" style={{ height: "25rem" }}>
-                <div className="card-body">Stall Executive Options</div>
+              <div className="card" style={{ height: "13rem" }}>
                 {/* <div className="card-body">Stall Executive Options</div> */}
                 <div className="d-grid gap-2 m-3 text-center">
                 Stall Executive Options
@@ -327,27 +332,29 @@ export default function AdminDashboard() {
                   </div>
               </div>
             </div>
-            <div className="col-lg-6 col-md-6">
-              <h6 className="text-center">Tickets</h6>
-              <div className="card" style={{ height: "25rem" }}>
-                <div className="card-body">Ticket Options</div>
-              </div>
-            </div>
           </div>
 
           <div className="row g-3 my-5">
             <div className="col-lg-4 col-md-4">
               <div className="d-grid gap-2">
-                <button type="button" className="btn btn-primary">
-                  Show Users
-                </button>
+              <button
+                      type="button"
+                      className="btn btn-primary"
+                      onClick={handleUserView}
+                    >
+                      Show users
+                    </button>
               </div>
             </div>
             <div className="col-lg-4 col-md-4">
               <div className="d-grid gap-2">
-                <button type="button" className="btn btn-primary">
-                  Show Orders
-                </button>
+              <button
+                      type="button"
+                      className="btn btn-primary"
+                      onClick={handleShowView}
+                    >
+                      Show users
+                    </button>
               </div>
             </div>
             <div className="col-lg-4 col-md-4">

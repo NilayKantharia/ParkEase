@@ -43,10 +43,10 @@ const AddNewStallOwner = ({ fetchStallOwnerList }) => {
   };
 
   return (
-    <div className="mt-4">
+    <div className="mt-4 m-5">
       <h3>Add New Stall Owner</h3>
-      <form onSubmit={handleSubmit}>
-        <div className="mb-2">
+      <form onSubmit={handleSubmit} className='mx-auto'>
+        <div className="mb-2 col-4">
           <input
             type="text"
             className="form-control"
@@ -56,7 +56,7 @@ const AddNewStallOwner = ({ fetchStallOwnerList }) => {
             required
           />
         </div>
-        <div className="mb-2">
+        <div className="mb-2 col-4">
           <input
             type="text"
             className="form-control"
@@ -66,7 +66,7 @@ const AddNewStallOwner = ({ fetchStallOwnerList }) => {
             required
           />
         </div>
-        <div className="mb-2">
+        <div className="mb-2 col-4">
           <input
             type="email"
             className="form-control"
@@ -76,7 +76,7 @@ const AddNewStallOwner = ({ fetchStallOwnerList }) => {
             required
           />
         </div>
-        <div className="mb-2">
+        <div className="mb-2 col-4">
           <input
             type="password"
             className="form-control"
@@ -85,7 +85,7 @@ const AddNewStallOwner = ({ fetchStallOwnerList }) => {
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        <button type="submit" className="btn btn-primary">
+        <button type="submit" className="btn btn-primary col-2">
           Add Stall Owner
         </button>
       </form>
