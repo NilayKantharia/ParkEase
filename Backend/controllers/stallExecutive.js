@@ -26,10 +26,10 @@ const handleAddNewStallExecutive = (req, res) => {
 };
 
 const handleEditStallExecutive = (req, res) => {
-    const {stallId} = req.body;
+    const {stall_name, user_name, mail_id} = req.body;
     const stallExecutiveId = req.params.sEID;
-    const query = 'UPDATE stall_executive SET stall_id = ? WHERE stall_executive_id = ?;';
-    connection.query(query, [stallId, stallExecutiveId], (err, result) => {
+    const query = 'UPDATE stall_executive SET user_name = ?, mail_id = ? WHERE stall_executive_id = ?;';
+    connection.query(query, [user_name, mail_id, stallExecutiveId], (err, result) => {
         if(err){
             return res.status(400).json(err);
         }

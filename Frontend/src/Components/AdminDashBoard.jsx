@@ -144,9 +144,28 @@ export default function AdminDashboard() {
     ],
   };
 
+  const handleViewStallExecutives = () => {
+    navigate("/stall-executives");
+  };
+
+  const handleAddNewStallExecutive = () => {
+    navigate("/add-new-stall-executive");
+  };
+
+  const handleEditStallExecutive = () => {
+    navigate("/edit-stall-executive");
+  };
+
+  const handleDeleteStallExecutive = () => {
+    const confirmed = window.confirm("Are you sure you want to delete?");
+    if (confirmed) {
+      console.log("Stall Executive deleted");
+    }
+  };
+
   return (
     <>
-      <div className="container">
+      <div className="container mt-4 mb-4 p-1 text-center text-light bg-primary" style={{borderRadius:"3px 3px 10px 10px"}}>
         <h1>Admin Dashboard</h1>
       </div>
 
@@ -168,8 +187,8 @@ export default function AdminDashboard() {
               </div>
             </div>
             <div className="col-lg-4 col-md-4">
-              <div className="card" style={{ height: "15rem" }}>
-                <div className="card-body text-white bg-success">
+              <div className="card bg-success" style={{ height: "15rem" }}>
+                <div className="card-body text-white text-center">
                   <h1>Total Ticket Sale</h1>
                   <h1>&#x20B9; {totalTicketSale}</h1>
                 </div>
@@ -177,7 +196,7 @@ export default function AdminDashboard() {
             </div>
             <div className="col-lg-4 col-md-4">
               <div className="card" style={{ height: "15rem" }}>
-                <div className="card-body">
+                <div className="card-body text-center">
                   Most Sold Ticket
                   <div>
                     <TopTickets className={"w-100"} />
@@ -260,8 +279,9 @@ export default function AdminDashboard() {
             <div className="col-lg-6 col-md-6">
               <h6 className="text-center">HR</h6>
               <div className="card" style={{ height: "25rem" }}>
-                <div className="card-body">
-                  <div className="d-grid gap-2">
+                <div className="card-body ">
+                  <div className="d-grid gap-2 text-center ">
+                    HR options
                     <button
                       type="button"
                       className="btn btn-primary"
@@ -287,6 +307,24 @@ export default function AdminDashboard() {
               <h6 className="text-center">Stall Executives</h6>
               <div className="card" style={{ height: "25rem" }}>
                 <div className="card-body">Stall Executive Options</div>
+                {/* <div className="card-body">Stall Executive Options</div> */}
+                <div className="d-grid gap-2 m-3 text-center">
+                Stall Executive Options
+                    <button
+                      type="button"
+                      className="btn btn-primary"
+                      onClick={handleViewStallExecutives}
+                    >
+                      View Stalls
+                    </button>
+                    <button
+                      type="button"
+                      className="btn btn-secondary"
+                      onClick={handleAddNewStallExecutive}
+                    >
+                      Add New Stall
+                    </button>
+                  </div>
               </div>
             </div>
             <div className="col-lg-6 col-md-6">
